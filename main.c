@@ -1,0 +1,251 @@
+/* 
+ * File:   main.c
+ * Author: bamasyali
+ *
+ * Created on October 22, 2013, 3:58 PM
+ */
+#ifndef LIBS
+#define LIBS 1
+#include <stdio.h>
+#include <stdlib.h>
+#endif
+
+#ifndef CITY_H
+#define CITY_H 1
+#include "City.h"
+#endif
+
+#ifndef CHROMOSOME_H
+#define CHROMOSOME_H 1
+#include "Chromosome.h"
+#endif
+
+#ifndef GENETIC_H
+#define GENETIC_H 1
+#include "Genetic.h"
+#endif
+
+#ifndef POPULATION_H
+#define POPULATION_H 1
+#include "Population.h"
+#endif
+
+#ifndef PMC_H
+#define PMC_H 1
+#include "PartiallyMappedCrossover.h"
+#include "TournamentSelection.h"
+#endif
+
+#ifndef SWAP_H
+#define SWAP_H 1
+#include "SwapMutation.h"
+#endif
+
+#ifndef INSERT_H
+#define INSERT_H 1
+#include "InsertMutation.h"
+#endif
+
+#ifndef INVERSION_H
+#define INVERSION_H 1
+#include "InversionMutation.h"
+#endif
+
+#ifndef RANKING_H
+#define RANKING_H 1
+#include "ExponentialRankingSelection.h"
+#endif
+
+#ifndef DISPLACEMENT_H
+#define DISPLACEMENT 1
+#include "InvertedDisplacementMutation.h"
+#endif
+
+
+#include <time.h>
+
+
+#define CITY_COUNT 150
+
+/*
+ * 
+ */
+
+City * CITY_LIST;
+
+int main(int argc, char** argv) {
+
+    if (argc != 5) {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
+
+    char * chromosomeNumberArgument = argv[1];
+    char * selectionTypeArgument = argv[2];
+    char * mutationTypeArgument = argv[3];
+    char * srandArgument = argv[4];
+
+    int chromosomeNumber;
+    int generationLimit = 10000;
+    int selectionType;
+    int mutationType;
+    int sr;
+
+
+    sscanf(chromosomeNumberArgument, "%d", &chromosomeNumber);
+    sscanf(selectionTypeArgument, "%d", &selectionType);
+    sscanf(mutationTypeArgument, "%d", &mutationType);
+    sscanf(srandArgument, "%d", &sr);
+
+    srand(time(NULL));
+
+    FILE * file = fopen("ch150.tsp", "r");
+    CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
+
+    Genetic * genetic = initGenetic(CITY_COUNT, generationLimit, chromosomeNumber, CITY_LIST);
+    genetic->initGeneration(genetic);
+    genetic->crossover = &performCrossover;
+
+    if (selectionType == 1) {
+        genetic->selection = &performTournamentSelection;
+    } else if (selectionType == 2) {
+        initRanks(genetic);
+        genetic->selection = &performExponentialRankingSelection;
+    }
+
+    if (mutationType == 1) {
+        genetic->mutation = &performSwapMutation;
+    } else if (mutationType == 2) {
+        genetic->mutation = &performInsertMutation;
+    } else if (mutationType == 3) {
+        genetic->mutation = &performInversionMutation;
+    } else if (mutationType == 5) {
+        genetic->mutation = &performInvertedDisplacementMutation;
+    }
+
+    int i;
+    for (i = 0; i < genetic->generationLimit; i++) {
+
+        if (mutationType == 4) {
+            int random = rand() % 3;
+            if (random == 0) {
+                genetic->mutation = &performSwapMutation;
+            } else if (random == 1) {
+                genetic->mutation = &performInsertMutation;
+            } else if (random == 2) {
+                genetic->mutation = &performInversionMutation;
+            }
+        }
+
+        genetic->shuffle(genetic);
+
+        Chromosome ** selection = genetic->selection(genetic);
+
+        Chromosome * c1 = selection[0];
+        Chromosome * c2 = selection[1];
+
+
+        genetic->crossover(genetic, c1, c2);
+        genetic->mutation(genetic);
+        genetic->generation++;
+
+
+
+        long best = 999999;
+        int j;
+        for (j = 0; j < genetic->chromosomeNumber; j++) {
+            if (genetic->chromosomes[j].totalDistance < best) {
+                best = genetic->chromosomes[j].totalDistance;
+            }
+        }
+
+        long average = 0;
+        for (j = 0; j < genetic->chromosomeNumber; j++) {
+
+            average += genetic->chromosomes[j].totalDistance;
+
+        }
+        average = average / genetic->chromosomeNumber;
+        printf("%d ; %lu ; %lu\n", i + 1, best, average);
+
+
+    }
+
+
+
+
+    /*
+        best = 999999;
+        int bestId;
+        int j;
+        for (j = 0; j < genetic->chromosomeNumber; j++) {
+            if (genetic->chromosomes[j].totalDistance < best) {
+                best = genetic->chromosomes[j].totalDistance;
+                bestId = j;
+            }
+        }
+     */
+
+    /*
+        for (j = 0; j < CITY_COUNT; j++) {
+            for (int k = j + 1; k < CITY_COUNT; k++) {
+                if (genetic->chromosomes[bestId].values[j] == genetic->chromosomes[bestId].values[k])
+                    printf("Error");
+            }
+        }
+     */
+
+    /*
+    file = fopen("ch150.opt.tour", "r");
+    Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
+
+    for (i = 0; i < CITY_COUNT; i++) {
+        printf("%d\n", chromosome->values[i]);
+    }
+
+    chromosome->calculateTotalDistance(chromosome, CITY_LIST);
+    printf("\n%lu\n", chromosome->totalDistance);
+     */
+
+
+    /*
+        int i;
+        for (i = 0; i < 50; i++) {
+            Chromosome * ch = genetic->chromosomes + i;
+            ch->calculateTotalDistance(ch, CITY_LIST);
+            printf("%d %d %lu ", i, ch->cityNumber, ch->totalDistance);
+            printf("\n");
+        }
+     */
+
+
+
+
+    /*
+        Chromosome * c1 = initChromosome(9);
+        int myArray[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        c1->values = myArray;
+
+        Genetic * g = initGenetic(9, 1, 1, CITY_LIST);
+
+        g->chromosomes = c1;
+
+        performInvertedDisplacementMutation(g);
+
+        for (i = 0; i < 9; i++) {
+            printf("%d ", c1->values[i]);
+        }
+        printf("\n");
+     */
+
+
+
+
+
+
+
+    genetic->destroy;
+
+    return (EXIT_SUCCESS);
+}
+

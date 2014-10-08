@@ -1,0 +1,32 @@
+/* 
+ * File:   generation.h
+ * Author: bamasyali
+ *
+ * Created on October 22, 2013, 4:07 PM
+ */
+
+#ifndef LIBS
+#define LIBS 1
+#include <stdio.h>
+#include <stdlib.h>
+#endif
+
+#ifndef CITY_H
+#define CITY_H 1
+#include "City.h"
+#endif
+
+#ifndef CHROMOSOME_H
+#define CHROMOSOME_H 1
+#include "Chromosome.h"
+#endif
+
+#ifndef GENETIC_H
+#define GENETIC_H 1
+#include "Genetic.h"
+#endif
+
+
+
+
+void initPopulation(Genetic * genetic);

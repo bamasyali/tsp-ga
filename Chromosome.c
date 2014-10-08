@@ -1,0 +1,69 @@
+#ifndef LIBS
+#define LIBS 1
+#include <stdio.h>
+#include <stdlib.h>
+#endif
+
+#ifndef CITY_H
+#define CITY_H 1
+#include "City.h"
+#endif
+
+#ifndef CHROMOSOME_H
+#define CHROMOSOME_H 1
+#include "Chromosome.h"
+#endif
+
+#ifndef GENETIC_H
+#define GENETIC_H 1
+#include "Genetic.h"
+#endif
+
+Chromosome * initChromosome(int cityNumber) {
+    Chromosome * chromosome = (Chromosome *) malloc(sizeof (Chromosome));
+
+    chromosome->values = (int*) malloc(sizeof (int) * cityNumber);
+    chromosome->cityNumber = cityNumber;
+
+    chromosome->calculateTotalDistance = &calculateTotalDistance;
+    chromosome->destroy = &destroyChromosome;
+    return chromosome;
+}
+
+void destroyChromosome(Chromosome * chromosome) {
+    free(chromosome->values);
+    free(chromosome);
+}
+
+void calculateTotalDistance(Chromosome * chromosome, City * cities) {
+
+    long totalDistance = 0;
+
+    int i;
+    for (i = 0; i < chromosome->cityNumber - 1; i++) {
+        City * c1 = cities + chromosome->values[i];
+        City * c2 = cities + chromosome->values[i + 1];
+        //printf("%d %d %d\n", i, c1->id, c2->id);
+        totalDistance += calculateDistanceById(cities, c1->id, c2->id);
+    }
+
+    //City * c1 = cities + chromosome->cityNumber - 1;
+    //City * c2 = cities;
+    //totalDistance += calculateDistanceById(cities, c1->id, c2->id);
+
+    chromosome->totalDistance = totalDistance;
+}
+
+Chromosome * readSolutionFromFile(FILE * file, int cityNumber) {
+
+    Chromosome * chromosome = initChromosome(cityNumber);
+
+    int i;
+    for (i = 0; i < cityNumber; i++) {
+        int id;
+        fscanf(file, "%d", &id);
+        chromosome->values[i] = id - 1;
+    }
+
+    return chromosome;
+}

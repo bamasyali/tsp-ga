@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="90">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>Chromosome.h</itemPath>
+      <itemPath>City.h</itemPath>
+      <itemPath>ExponentialRankingSelection.h</itemPath>
+      <itemPath>Genetic.h</itemPath>
+      <itemPath>InsertMutation.h</itemPath>
+      <itemPath>InversionMutation.h</itemPath>
+      <itemPath>InvertedDisplacementMutation.h</itemPath>
+      <itemPath>PartiallyMappedCrossover.h</itemPath>
+      <itemPath>Population.h</itemPath>
+      <itemPath>SwapMutation.h</itemPath>
+      <itemPath>TournamentSelection.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>Chromosome.c</itemPath>
+      <itemPath>City.c</itemPath>
+      <itemPath>ExponentialRankingSelection.c</itemPath>
+      <itemPath>Genetic.c</itemPath>
+      <itemPath>InsertMutation.c</itemPath>
+      <itemPath>InversionMutation.c</itemPath>
+      <itemPath>InvertedDisplacementMutation.c</itemPath>
+      <itemPath>PartiallyMappedCrossover.c</itemPath>
+      <itemPath>Population.c</itemPath>
+      <itemPath>SwapMutation.c</itemPath>
+      <itemPath>TournamentSelection.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>ch150.opt.tour</itemPath>
+      <itemPath>ch150.tsp</itemPath>
+      <itemPath>main.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <commandlineTool>g++</commandlineTool>
+        </cTool>
+      </compileType>
+      <item path="Chromosome.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Chromosome.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="City.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="City.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ExponentialRankingSelection.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="ExponentialRankingSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genetic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InsertMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InsertMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InversionMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InversionMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InvertedDisplacementMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InvertedDisplacementMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PartiallyMappedCrossover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Population.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Population.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SwapMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="SwapMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TournamentSelection.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ch150.opt.tour" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ch150.tsp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="Chromosome.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Chromosome.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="City.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="City.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ExponentialRankingSelection.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="ExponentialRankingSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genetic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Genetic.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InsertMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InsertMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InversionMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InversionMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="InvertedDisplacementMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="InvertedDisplacementMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="PartiallyMappedCrossover.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Population.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Population.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="SwapMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="SwapMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TournamentSelection.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ch150.opt.tour" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ch150.tsp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
