@@ -35,11 +35,6 @@ void performInsertMutation(Genetic * genetic) {
     int i;
     for (i = 0; i < genetic->chromosomeNumber; i++) {
 
-        int random = rand() % 1000;
-        if (random > 5) {
-            continue;
-        }
-
         Chromosome * chromosome = genetic->chromosomes + i;
 
         int rnd1 = rand() % genetic->cityNumber;

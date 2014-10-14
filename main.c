@@ -133,7 +133,12 @@ int main(int argc, char** argv) {
 
 
         genetic->crossover(genetic, c1, c2);
-        genetic->mutation(genetic);
+
+        int random = rand() % 100;
+        if (random < 10) {
+            genetic->mutation(genetic);
+        }
+
         genetic->generation++;
 
 
