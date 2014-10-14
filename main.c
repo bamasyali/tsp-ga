@@ -151,30 +151,7 @@ int main(int argc, char** argv) {
         child1->calculateTotalDistance(child1, genetic->cities);
         child2->calculateTotalDistance(child2, genetic->cities);
 
-        int worstFirst = 1;
-        int worstSecond = 0;
-        long worstFirstDistance = 0;
-        long worstSecondDistance = 0;
-
-        int i;
-        for (i = 0; i < genetic->chromosomeNumber; i++) {
-            if (genetic->chromosomes[i].totalDistance > worstFirstDistance) {
-                worstSecond = worstFirst;
-                worstFirst = i;
-                worstSecondDistance = worstFirstDistance;
-                worstFirstDistance = genetic->chromosomes[i].totalDistance;
-            }
-        }
-
-        free(genetic->chromosomes[worstFirst].values);
-        genetic->chromosomes[worstFirst].values = child1->values;
-        genetic->chromosomes[worstFirst].totalDistance = child1->totalDistance;
-        free(child1);
-
-        free(genetic->chromosomes[worstSecond].values);
-        genetic->chromosomes[worstSecond].values = child2->values;
-        genetic->chromosomes[worstSecond].totalDistance = child2->totalDistance;
-        free(child2);
+        genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
 

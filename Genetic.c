@@ -43,6 +43,7 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     genetic->initPopulation = &initPopulation;
     genetic->destroy = &destroyGenetic;
     genetic->print = &printGeneration;
+    genetic->replace = &replace;
 
     return genetic;
 }
@@ -189,4 +190,31 @@ void printGeneration(Genetic * genetic, int generationNumber) {
     }
     average = average / genetic->chromosomeNumber;
     printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
+}
+
+void replace(Genetic * genetic, Chromosome * child1, Chromosome * child2) {
+    int worstFirst = 1;
+    int worstSecond = 0;
+    long worstFirstDistance = 0;
+    long worstSecondDistance = 0;
+
+    int i;
+    for (i = 0; i < genetic->chromosomeNumber; i++) {
+        if (genetic->chromosomes[i].totalDistance > worstFirstDistance) {
+            worstSecond = worstFirst;
+            worstFirst = i;
+            worstSecondDistance = worstFirstDistance;
+            worstFirstDistance = genetic->chromosomes[i].totalDistance;
+        }
+    }
+
+    free(genetic->chromosomes[worstFirst].values);
+    genetic->chromosomes[worstFirst].values = child1->values;
+    genetic->chromosomes[worstFirst].totalDistance = child1->totalDistance;
+    free(child1);
+
+    free(genetic->chromosomes[worstSecond].values);
+    genetic->chromosomes[worstSecond].values = child2->values;
+    genetic->chromosomes[worstSecond].totalDistance = child2->totalDistance;
+    free(child2);
 }
