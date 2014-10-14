@@ -43,7 +43,7 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     }
 
     genetic->shuffle = &shuffleChromosomes;
-    genetic->initGeneration = &initPopulation;
+    genetic->initPopulation = &initPopulation;
     genetic->destroy = &destroyGenetic;
 
     return genetic;

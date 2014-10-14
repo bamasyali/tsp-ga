@@ -72,17 +72,19 @@ City * CITY_LIST;
 
 int main(int argc, char** argv) {
 
-    if (argc != 5) {
+    if (argc != 6) {
         printf("Invalid Arguments!\n");
         return (EXIT_FAILURE);
     }
 
     char * chromosomeNumberArgument = argv[1];
-    char * selectionTypeArgument = argv[2];
-    char * mutationTypeArgument = argv[3];
-    char * srandArgument = argv[4];
+    char * randomNeighbourRatioArgument = argv[2];
+    char * selectionTypeArgument = argv[3];
+    char * mutationTypeArgument = argv[4];
+    char * srandArgument = argv[5];
 
     int chromosomeNumber;
+    double randomNeighbourRatio;
     int generationLimit = 10000;
     int selectionType;
     int mutationType;
@@ -90,6 +92,7 @@ int main(int argc, char** argv) {
 
 
     sscanf(chromosomeNumberArgument, "%d", &chromosomeNumber);
+    sscanf(randomNeighbourRatioArgument, "%lf", &randomNeighbourRatio);
     sscanf(selectionTypeArgument, "%d", &selectionType);
     sscanf(mutationTypeArgument, "%d", &mutationType);
     sscanf(srandArgument, "%d", &sr);
@@ -100,7 +103,7 @@ int main(int argc, char** argv) {
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
     Genetic * genetic = initGenetic(CITY_COUNT, generationLimit, chromosomeNumber, CITY_LIST);
-    genetic->initGeneration(genetic);
+    genetic->initPopulation(genetic, randomNeighbourRatio);
     genetic->crossover = &performCrossover;
 
     if (selectionType == 1) {

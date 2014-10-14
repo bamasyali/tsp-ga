@@ -29,4 +29,4 @@
 
 
 
-void initPopulation(Genetic * genetic);
+void initPopulation(Genetic * genetic,double randomNeighbourRatio);

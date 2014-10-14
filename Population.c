@@ -98,11 +98,17 @@ void generateChromosomeUsingNearestNeigbour(Genetic * genetic, Chromosome * chro
 
 }
 
-void initPopulation(Genetic * genetic) {
+void initPopulation(Genetic * genetic, double randomNeighbourRatio) {
     int i;
     int chromosomeSize = genetic->chromosomeNumber;
+    int randomChromosomeNumber = randomNeighbourRatio * chromosomeSize;
+
     for (i = 0; i < chromosomeSize; i++) {
-        generateChromosomeUsingNearestNeigbour(genetic, genetic->chromosomes + i);
+        if (i < randomChromosomeNumber) {
+            generateChromosomeUsingRandom(genetic, genetic->chromosomes + i);
+        } else {
+            generateChromosomeUsingNearestNeigbour(genetic, genetic->chromosomes + i);
+        }
         genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities);
     }
 }
