@@ -44,3 +44,5 @@ Genetic * initGenetic(int citySize, int generationLimit, int chromosomeSize, Cit
 void destroyGenetic(Genetic * genetic);
 
 void shuffleChromosomes(Genetic * genetic);
+
+void shuffle(Chromosome * array, int n);

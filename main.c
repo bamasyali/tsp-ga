@@ -66,13 +66,7 @@
 #include "InvertedDisplacementMutation.h"
 #endif
 
-
-
 #define CITY_COUNT 150
-
-/*
- * 
- */
 
 City * CITY_LIST;
 
