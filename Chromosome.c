@@ -47,9 +47,9 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities) {
         totalDistance += calculateDistanceById(cities, c1->id, c2->id);
     }
 
-    //City * c1 = cities + chromosome->cityNumber - 1;
-    //City * c2 = cities;
-    //totalDistance += calculateDistanceById(cities, c1->id, c2->id);
+    City * c1 = cities + chromosome->cityNumber - 1;
+    City * c2 = cities;
+    totalDistance += calculateDistanceById(cities, c1->id, c2->id);
 
     chromosome->totalDistance = totalDistance;
 }
