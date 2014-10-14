@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-void performInsertMutation(Genetic * genetic);
+void performInsertMutation(Chromosome * chromosome);

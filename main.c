@@ -131,17 +131,9 @@ int main(int argc, char** argv) {
         Chromosome * c1 = selection[0];
         Chromosome * c2 = selection[1];
 
-
-        genetic->crossover(genetic, c1, c2);
-
-        int random = rand() % 100;
-        if (random < 10) {
-            genetic->mutation(genetic);
-        }
+        genetic->crossover(genetic, c1, c2);       
 
         genetic->generation++;
-
-
 
         long best = 999999;
         int j;
@@ -153,9 +145,7 @@ int main(int argc, char** argv) {
 
         long average = 0;
         for (j = 0; j < genetic->chromosomeNumber; j++) {
-
             average += genetic->chromosomes[j].totalDistance;
-
         }
         average = average / genetic->chromosomeNumber;
         printf("%d ; %lu ; %lu\n", i + 1, best, average);

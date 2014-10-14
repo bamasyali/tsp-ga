@@ -31,30 +31,26 @@
 #include "InversionMutation.h"
 #endif
 
-void performInversionMutation(Genetic * genetic) {
-    int i;
-    for (i = 0; i < genetic->chromosomeNumber; i++) {
+void performInversionMutation(Chromosome * chromosome) {
 
-        Chromosome * chromosome = genetic->chromosomes + i;
+    int rnd1 = rand() % chromosome->cityNumber;
+    int rnd2 = (rand() % (chromosome->cityNumber - rnd1)) + rnd1;
 
-        int rnd1 = rand() % genetic->cityNumber;
-        int rnd2 = (rand() % (genetic->cityNumber - rnd1)) + rnd1;
+    int * tempArray = (int*) malloc((rnd2 - rnd1 + 1) * sizeof (int));
+    int temp = rnd2 - rnd1;
 
-        int * tempArray = (int*) malloc((rnd2 - rnd1 + 1) * sizeof (int));
-        int temp = rnd2 - rnd1;
-
-        int j;
-        for (j = rnd1; j <= rnd2; j++) {
-            tempArray[temp] = chromosome->values[j];
-            temp--;
-        }
-
-        temp = 0;
-        for (j = rnd1; j <= rnd2; j++) {
-            chromosome->values[j] = tempArray[temp];
-            temp++;
-        }
-        free(tempArray);
-
+    int j;
+    for (j = rnd1; j <= rnd2; j++) {
+        tempArray[temp] = chromosome->values[j];
+        temp--;
     }
+
+    temp = 0;
+    for (j = rnd1; j <= rnd2; j++) {
+        chromosome->values[j] = tempArray[temp];
+        temp++;
+    }
+    free(tempArray);
+
+
 }

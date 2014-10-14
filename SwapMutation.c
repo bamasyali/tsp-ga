@@ -31,17 +31,13 @@
 #include "SwapMutation.h"
 #endif
 
-void performSwapMutation(Genetic * genetic) {
-    int i;
-    for (i = 0; i < genetic->chromosomeNumber; i++) {
+void performSwapMutation(Chromosome * chromosome) {
 
-        Chromosome * chromosome = genetic->chromosomes + i;
+    int rnd1 = rand() % chromosome->cityNumber;
+    int rnd2 = rand() % chromosome->cityNumber;
 
-        int rnd1 = rand() % genetic->cityNumber;
-        int rnd2 = rand() % genetic->cityNumber;
+    int temp = chromosome->values[rnd1];
+    chromosome->values[rnd1] = chromosome->values[rnd2];
+    chromosome->values[rnd2] = temp;
 
-        int temp = chromosome->values[rnd1];
-        chromosome->values[rnd1] = chromosome->values[rnd2];
-        chromosome->values[rnd2] = temp;
-    }
 }

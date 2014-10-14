@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-void performRandomMutation(Genetic * genetic);
+void performRandomMutation(Chromosome * chromosome);

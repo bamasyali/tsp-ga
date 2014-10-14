@@ -31,7 +31,6 @@
 #include "PartiallyMappedCrossover.h"
 #endif
 
-
 Chromosome * crossover(Chromosome * c1, Chromosome * c2, int s1, int s2) {
     int cityNumber = c1->cityNumber;
 
@@ -160,6 +159,16 @@ void performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
     Chromosome * child1 = crossover(c1, c2, s1, s2);
     Chromosome * child2 = crossover(c2, c1, s1, s2);
 
+    int random = rand() % 100;
+    if (random < 10) {
+        genetic->mutation(child1);
+    }
+
+    random = rand() % 100;
+    if (random < 10) {
+        genetic->mutation(child2);
+    }
+
     child1->calculateTotalDistance(child1, genetic->cities);
     child2->calculateTotalDistance(child2, genetic->cities);
 
@@ -177,6 +186,8 @@ void performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
             worstFirstDistance = genetic->chromosomes[i].totalDistance;
         }
     }
+
+
 
     free(genetic->chromosomes[worstFirst].values);
     genetic->chromosomes[worstFirst].values = child1->values;

@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-void performSwapMutation(Genetic * genetic);
+void performSwapMutation(Chromosome * chromosome);

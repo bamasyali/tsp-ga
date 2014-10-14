@@ -31,20 +31,16 @@
 #include "InsertMutation.h"
 #endif
 
-void performInsertMutation(Genetic * genetic) {
-    int i;
-    for (i = 0; i < genetic->chromosomeNumber; i++) {
+void performInsertMutation(Chromosome * chromosome) {
 
-        Chromosome * chromosome = genetic->chromosomes + i;
+    int rnd1 = rand() % chromosome->cityNumber;
+    int rnd2 = (rand() % (chromosome->cityNumber - rnd1)) + rnd1;
 
-        int rnd1 = rand() % genetic->cityNumber;
-        int rnd2 = (rand() % (genetic->cityNumber - rnd1)) + rnd1;
-
-        int j;
-        for (j = rnd2; j > rnd1 + 1; j--) {
-            int temp = chromosome->values[j];
-            chromosome->values[j] = chromosome->values[j - 1];
-            chromosome->values[j - 1] = temp;
-        }
+    int j;
+    for (j = rnd2; j > rnd1 + 1; j--) {
+        int temp = chromosome->values[j];
+        chromosome->values[j] = chromosome->values[j - 1];
+        chromosome->values[j - 1] = temp;
     }
+
 }

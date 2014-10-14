@@ -46,13 +46,13 @@
 #include "RandomMutation.h"
 #endif
 
-void performRandomMutation(Genetic * genetic) {
+void performRandomMutation(Chromosome * chromosome) {
     int random = rand() % 3;
     if (random == 0) {
-        performSwapMutation(genetic);
+        performSwapMutation(chromosome);
     } else if (random == 1) {
-        performInsertMutation(genetic);
+        performInsertMutation(chromosome);
     } else if (random == 2) {
-        performInversionMutation(genetic);
+        performInversionMutation(chromosome);
     }
 }

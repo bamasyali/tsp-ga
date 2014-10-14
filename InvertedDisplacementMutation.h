@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-void performInvertedDisplacementMutation(Genetic * genetic);
+void performInvertedDisplacementMutation(Chromosome * chromosome);
