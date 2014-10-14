@@ -34,7 +34,6 @@ typedef struct GeneticStruct {
     Chromosome ** (*selection)(struct GeneticStruct*);
     void (*crossover)(struct GeneticStruct*, Chromosome *, Chromosome *);
     void (*mutation)(struct GeneticStruct*);
-    void (*destroyOldGeneration)(struct GeneticStruct*);
     void (*destroy)(struct GeneticStruct*);
 
 } Genetic;
