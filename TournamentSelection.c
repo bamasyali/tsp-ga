@@ -36,10 +36,10 @@ Chromosome ** performTournamentSelection(Genetic * genetic) {
     int random = rand() % (genetic->chromosomeNumber - (TOURNAMENT_SIZE * 2));
 
     int best;
-    long bestDistance = 0;
+    long bestDistance = 99999999;
     int i;
     for (i = random; i < random + TOURNAMENT_SIZE; i++) {
-        if (genetic->chromosomes[i].totalDistance > bestDistance) {
+        if (genetic->chromosomes[i].totalDistance < bestDistance) {
             best = i;
             bestDistance = genetic->chromosomes[i].totalDistance;
         }
@@ -47,9 +47,9 @@ Chromosome ** performTournamentSelection(Genetic * genetic) {
 
     result[0] = genetic->chromosomes + best;
 
-    bestDistance = 0;
+    bestDistance = 99999999;
     for (i = random + TOURNAMENT_SIZE; i < random + (TOURNAMENT_SIZE * 2); i++) {
-        if (genetic->chromosomes[i].totalDistance > bestDistance) {
+        if (genetic->chromosomes[i].totalDistance < bestDistance) {
             best = i;
             bestDistance = genetic->chromosomes[i].totalDistance;
         }
