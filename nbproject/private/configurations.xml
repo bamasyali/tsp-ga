@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="95">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -24,7 +24,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH} -lm"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" s</runcommandpicklistitem>
@@ -34,8 +33,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}"   50 2 3 6877 </runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"   50 2 5 6877</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"   50 2 3 6877</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"   50 2 4 6877</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"   50 2 3 6877</runcommand>
+        <runcommand>"${OUTPUT_PATH}"   50 2 4 6877</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

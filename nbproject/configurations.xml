@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="95">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -13,6 +13,7 @@
       <itemPath>InvertedDisplacementMutation.h</itemPath>
       <itemPath>PartiallyMappedCrossover.h</itemPath>
       <itemPath>Population.h</itemPath>
+      <itemPath>RandomMutation.h</itemPath>
       <itemPath>SwapMutation.h</itemPath>
       <itemPath>TournamentSelection.h</itemPath>
     </logicalFolder>
@@ -28,6 +29,7 @@
       <itemPath>InvertedDisplacementMutation.c</itemPath>
       <itemPath>PartiallyMappedCrossover.c</itemPath>
       <itemPath>Population.c</itemPath>
+      <itemPath>RandomMutation.c</itemPath>
       <itemPath>SwapMutation.c</itemPath>
       <itemPath>TournamentSelection.c</itemPath>
     </logicalFolder>
@@ -99,6 +101,10 @@
       </item>
       <item path="Population.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="RandomMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="RandomMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="SwapMutation.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="SwapMutation.h" ex="false" tool="3" flavor2="0">
@@ -169,6 +175,10 @@
       <item path="Population.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Population.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RandomMutation.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="RandomMutation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="SwapMutation.c" ex="false" tool="0" flavor2="0">
       </item>

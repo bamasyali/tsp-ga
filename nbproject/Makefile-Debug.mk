@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=g++
-CCC=g++
-CXX=g++
+CCC=gcc
+CXX=gcc
 FC=gfortran
 AS=as
 
@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/InvertedDisplacementMutation.o \
 	${OBJECTDIR}/PartiallyMappedCrossover.o \
 	${OBJECTDIR}/Population.o \
+	${OBJECTDIR}/RandomMutation.o \
 	${OBJECTDIR}/SwapMutation.o \
 	${OBJECTDIR}/TournamentSelection.o \
 	${OBJECTDIR}/main.o
@@ -67,11 +68,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Chromosome.o: Chromosome.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -118,6 +119,11 @@ ${OBJECTDIR}/Population.o: Population.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Population.o Population.c
 
+${OBJECTDIR}/RandomMutation.o: RandomMutation.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RandomMutation.o RandomMutation.c
+
 ${OBJECTDIR}/SwapMutation.o: SwapMutation.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -139,7 +145,7 @@ ${OBJECTDIR}/main.o: main.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic
 
 # Subprojects
 .clean-subprojects:

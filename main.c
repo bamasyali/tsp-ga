@@ -51,6 +51,11 @@
 #include "InversionMutation.h"
 #endif
 
+#ifndef RANDOM_H
+#define RANDOM_H 1
+#include "RandomMutation.h"
+#endif
+
 #ifndef RANKING_H
 #define RANKING_H 1
 #include "ExponentialRankingSelection.h"
@@ -119,23 +124,14 @@ int main(int argc, char** argv) {
         genetic->mutation = &performInsertMutation;
     } else if (mutationType == 3) {
         genetic->mutation = &performInversionMutation;
+    } else if (mutationType == 4) {
+        genetic->mutation = &performRandomMutation;
     } else if (mutationType == 5) {
         genetic->mutation = &performInvertedDisplacementMutation;
     }
 
     int i;
     for (i = 0; i < genetic->generationLimit; i++) {
-
-        if (mutationType == 4) {
-            int random = rand() % 3;
-            if (random == 0) {
-                genetic->mutation = &performSwapMutation;
-            } else if (random == 1) {
-                genetic->mutation = &performInsertMutation;
-            } else if (random == 2) {
-                genetic->mutation = &performInversionMutation;
-            }
-        }
 
         genetic->shuffle(genetic);
 
