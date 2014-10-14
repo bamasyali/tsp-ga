@@ -63,6 +63,7 @@
 #endif
 
 #define CITY_COUNT 150
+#define MUTATION_PROBABILITY 10
 
 City * CITY_LIST;
 
@@ -138,12 +139,12 @@ int main(int argc, char** argv) {
 
 
         int random = rand() % 100;
-        if (random < 10) {
+        if (random < MUTATION_PROBABILITY) {
             genetic->mutation(child1);
         }
 
         random = rand() % 100;
-        if (random < 10) {
+        if (random < MUTATION_PROBABILITY) {
             genetic->mutation(child2);
         }
 
