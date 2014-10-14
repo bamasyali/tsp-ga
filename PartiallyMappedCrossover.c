@@ -31,15 +31,11 @@
 #include "PartiallyMappedCrossover.h"
 #endif
 
-#define CROSSOVER_PROBABILITY 70
 
 Chromosome * crossover(Chromosome * c1, Chromosome * c2, int s1, int s2) {
     int cityNumber = c1->cityNumber;
 
-
-
     Chromosome * newChromosome = initChromosome(cityNumber);
-
 
     int i;
     for (i = 0; i < cityNumber; i++) {
