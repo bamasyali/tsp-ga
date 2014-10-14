@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=genetic
+PROJECTNAME=evolutionary-computing
 
 # Active Configuration
 DEFAULTCONF=Debug

@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-void performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2);
+ Chromosome ** performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2);

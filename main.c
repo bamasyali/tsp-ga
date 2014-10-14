@@ -66,6 +66,23 @@
 
 City * CITY_LIST;
 
+void printGeneration(Genetic * genetic, int generationNumber) {
+    long best = 999999;
+    int j;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        if (genetic->chromosomes[j].totalDistance < best) {
+            best = genetic->chromosomes[j].totalDistance;
+        }
+    }
+
+    long average = 0;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        average += genetic->chromosomes[j].totalDistance;
+    }
+    average = average / genetic->chromosomeNumber;
+    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
+}
+
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -131,26 +148,53 @@ int main(int argc, char** argv) {
         Chromosome * c1 = selection[0];
         Chromosome * c2 = selection[1];
 
-        genetic->crossover(genetic, c1, c2);       
+        Chromosome ** children = genetic->crossover(genetic, c1, c2);
 
-        genetic->generation++;
+        Chromosome * child1 = children[0];
+        Chromosome * child2 = children[1];
 
-        long best = 999999;
-        int j;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            if (genetic->chromosomes[j].totalDistance < best) {
-                best = genetic->chromosomes[j].totalDistance;
+
+        int random = rand() % 100;
+        if (random < 10) {
+            genetic->mutation(child1);
+        }
+
+        random = rand() % 100;
+        if (random < 10) {
+            genetic->mutation(child2);
+        }
+
+        child1->calculateTotalDistance(child1, genetic->cities);
+        child2->calculateTotalDistance(child2, genetic->cities);
+
+        int worstFirst = 1;
+        int worstSecond = 0;
+        long worstFirstDistance = 0;
+        long worstSecondDistance = 0;
+
+        int i;
+        for (i = 0; i < genetic->chromosomeNumber; i++) {
+            if (genetic->chromosomes[i].totalDistance > worstFirstDistance) {
+                worstSecond = worstFirst;
+                worstFirst = i;
+                worstSecondDistance = worstFirstDistance;
+                worstFirstDistance = genetic->chromosomes[i].totalDistance;
             }
         }
 
-        long average = 0;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            average += genetic->chromosomes[j].totalDistance;
-        }
-        average = average / genetic->chromosomeNumber;
-        printf("%d ; %lu ; %lu\n", i + 1, best, average);
+        free(genetic->chromosomes[worstFirst].values);
+        genetic->chromosomes[worstFirst].values = child1->values;
+        genetic->chromosomes[worstFirst].totalDistance = child1->totalDistance;
+        free(child1);
 
+        free(genetic->chromosomes[worstSecond].values);
+        genetic->chromosomes[worstSecond].values = child2->values;
+        genetic->chromosomes[worstSecond].totalDistance = child2->totalDistance;
+        free(child2);
 
+        genetic->generation++;
+
+        printGeneration(genetic,i);
     }
 
 

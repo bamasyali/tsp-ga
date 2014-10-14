@@ -148,7 +148,7 @@ label:
     return newChromosome;
 }
 
-void performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
+Chromosome ** performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
 
     int s1 = rand() % genetic->cityNumber;
     //printf("%d", s1);
@@ -159,45 +159,11 @@ void performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
     Chromosome * child1 = crossover(c1, c2, s1, s2);
     Chromosome * child2 = crossover(c2, c1, s1, s2);
 
-    int random = rand() % 100;
-    if (random < 10) {
-        genetic->mutation(child1);
-    }
+    Chromosome ** result = (Chromosome**) malloc(2 * sizeof (Chromosome*));
 
-    random = rand() % 100;
-    if (random < 10) {
-        genetic->mutation(child2);
-    }
+    result[0] = child1;
+    result[1] = child2;
 
-    child1->calculateTotalDistance(child1, genetic->cities);
-    child2->calculateTotalDistance(child2, genetic->cities);
-
-    int worstFirst = 1;
-    int worstSecond = 0;
-    long worstFirstDistance = 0;
-    long worstSecondDistance = 0;
-
-    int i;
-    for (i = 0; i < genetic->chromosomeNumber; i++) {
-        if (genetic->chromosomes[i].totalDistance > worstFirstDistance) {
-            worstSecond = worstFirst;
-            worstFirst = i;
-            worstSecondDistance = worstFirstDistance;
-            worstFirstDistance = genetic->chromosomes[i].totalDistance;
-        }
-    }
-
-
-
-    free(genetic->chromosomes[worstFirst].values);
-    genetic->chromosomes[worstFirst].values = child1->values;
-    genetic->chromosomes[worstFirst].totalDistance = child1->totalDistance;
-    free(child1);
-
-    free(genetic->chromosomes[worstSecond].values);
-    genetic->chromosomes[worstSecond].values = child2->values;
-    genetic->chromosomes[worstSecond].totalDistance = child2->totalDistance;
-    free(child2);
-
+    return result;
 }
 
