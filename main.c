@@ -67,8 +67,6 @@
 #endif
 
 
-#include <time.h>
-
 
 #define CITY_COUNT 150
 
@@ -102,7 +100,7 @@ int main(int argc, char** argv) {
     sscanf(mutationTypeArgument, "%d", &mutationType);
     sscanf(srandArgument, "%d", &sr);
 
-    srand(time(NULL));
+    srand(sr);
 
     FILE * file = fopen("ch150.tsp", "r");
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
