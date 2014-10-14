@@ -42,6 +42,7 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     genetic->shuffle = &shuffleChromosomes;
     genetic->initPopulation = &initPopulation;
     genetic->destroy = &destroyGenetic;
+    genetic->print = &printGeneration;
 
     return genetic;
 }
@@ -171,4 +172,21 @@ void initPopulation(Genetic * genetic, double randomNeighbourRatio) {
         genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities);
         validateChromosome(genetic->chromosomes + i);
     }
+}
+
+void printGeneration(Genetic * genetic, int generationNumber) {
+    long best = 999999;
+    int j;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        if (genetic->chromosomes[j].totalDistance < best) {
+            best = genetic->chromosomes[j].totalDistance;
+        }
+    }
+
+    long average = 0;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        average += genetic->chromosomes[j].totalDistance;
+    }
+    average = average / genetic->chromosomeNumber;
+    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
 }

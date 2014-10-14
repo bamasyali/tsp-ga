@@ -66,23 +66,6 @@
 
 City * CITY_LIST;
 
-void printGeneration(Genetic * genetic, int generationNumber) {
-    long best = 999999;
-    int j;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        if (genetic->chromosomes[j].totalDistance < best) {
-            best = genetic->chromosomes[j].totalDistance;
-        }
-    }
-
-    long average = 0;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        average += genetic->chromosomes[j].totalDistance;
-    }
-    average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
-}
-
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -194,7 +177,7 @@ int main(int argc, char** argv) {
 
         genetic->generation++;
 
-        printGeneration(genetic,i);
+        genetic->print(genetic, i);
     }
 
 
