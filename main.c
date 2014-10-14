@@ -100,8 +100,9 @@ int main(int argc, char** argv) {
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
     Genetic * genetic = initGenetic(CITY_COUNT, generationLimit, chromosomeNumber, CITY_LIST);
+    genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
-    genetic->crossover = &performCrossover;
+   
 
     if (selectionType == 1) {
         genetic->selection = &performTournamentSelection;

@@ -148,7 +148,7 @@ label:
     return newChromosome;
 }
 
-Chromosome ** performCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
+Chromosome ** performPartiallyMappedCrossover(Genetic * genetic, Chromosome * c1, Chromosome * c2) {
 
     int s1 = rand() % genetic->cityNumber;
     //printf("%d", s1);

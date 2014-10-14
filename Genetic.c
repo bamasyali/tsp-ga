@@ -39,11 +39,12 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
         genetic->chromosomes[i].validate = &validateChromosome;
     }
 
-    genetic->shuffle = &shuffleChromosomes;
     genetic->initPopulation = &initPopulation;
+    genetic->replace = &replace;
+    genetic->shuffle = &shuffleChromosomes;
     genetic->destroy = &destroyGenetic;
     genetic->print = &printGeneration;
-    genetic->replace = &replace;
+
 
     return genetic;
 }
