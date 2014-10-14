@@ -25,10 +25,6 @@
 #include "Genetic.h"
 #endif
 
-#ifndef POPULATION_H
-#define POPULATION_H 1
-#include "Population.h"
-#endif
 
 #ifndef PMC_H
 #define PMC_H 1

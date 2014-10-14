@@ -12,7 +12,6 @@
       <itemPath>InversionMutation.h</itemPath>
       <itemPath>InvertedDisplacementMutation.h</itemPath>
       <itemPath>PartiallyMappedCrossover.h</itemPath>
-      <itemPath>Population.h</itemPath>
       <itemPath>RandomMutation.h</itemPath>
       <itemPath>SwapMutation.h</itemPath>
       <itemPath>TournamentSelection.h</itemPath>
@@ -28,7 +27,6 @@
       <itemPath>InversionMutation.c</itemPath>
       <itemPath>InvertedDisplacementMutation.c</itemPath>
       <itemPath>PartiallyMappedCrossover.c</itemPath>
-      <itemPath>Population.c</itemPath>
       <itemPath>RandomMutation.c</itemPath>
       <itemPath>SwapMutation.c</itemPath>
       <itemPath>TournamentSelection.c</itemPath>
@@ -96,10 +94,6 @@
       <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="PartiallyMappedCrossover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Population.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="Population.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RandomMutation.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -171,10 +165,6 @@
       <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="PartiallyMappedCrossover.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Population.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="Population.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RandomMutation.c" ex="false" tool="0" flavor2="0">
       </item>

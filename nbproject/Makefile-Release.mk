@@ -43,7 +43,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/InversionMutation.o \
 	${OBJECTDIR}/InvertedDisplacementMutation.o \
 	${OBJECTDIR}/PartiallyMappedCrossover.o \
-	${OBJECTDIR}/Population.o \
 	${OBJECTDIR}/RandomMutation.o \
 	${OBJECTDIR}/SwapMutation.o \
 	${OBJECTDIR}/TournamentSelection.o \
@@ -113,11 +112,6 @@ ${OBJECTDIR}/PartiallyMappedCrossover.o: PartiallyMappedCrossover.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PartiallyMappedCrossover.o PartiallyMappedCrossover.c
-
-${OBJECTDIR}/Population.o: Population.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Population.o Population.c
 
 ${OBJECTDIR}/RandomMutation.o: RandomMutation.c 
 	${MKDIR} -p ${OBJECTDIR}

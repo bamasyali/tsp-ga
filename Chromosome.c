@@ -27,12 +27,36 @@ Chromosome * initChromosome(int cityNumber) {
 
     chromosome->calculateTotalDistance = &calculateTotalDistance;
     chromosome->destroy = &destroyChromosome;
+
+    chromosome->print = &printChromosome;
+    chromosome->validate = &validateChromosome;
+
     return chromosome;
 }
 
 void destroyChromosome(Chromosome * chromosome) {
     free(chromosome->values);
     free(chromosome);
+}
+
+void printChromosome(Chromosome * chromosome) {
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        printf("%d -> ", chromosome->values[i]);
+    }
+    printf("\n");
+}
+
+void validateChromosome(Chromosome * chromosome) {
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        int j;
+        for (j = i + 1; j < chromosome->cityNumber; j++) {
+            if (chromosome->values[i] == chromosome->values[j]) {
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
 }
 
 void calculateTotalDistance(Chromosome * chromosome, City * cities) {

@@ -45,4 +45,4 @@ void destroyGenetic(Genetic * genetic);
 
 void shuffleChromosomes(Genetic * genetic);
 
-void shuffle(Chromosome * array, int n);
+void initPopulation(Genetic * genetic, double randomNeighbourRatio);
