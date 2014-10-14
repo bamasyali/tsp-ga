@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
 
     int chromosomeNumber;
     double randomNeighbourRatio;
-    int generationLimit = 10000;
+    int generationLimit = 5000;
     int selectionType;
     int mutationType;
     int sr;
