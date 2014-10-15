@@ -38,19 +38,6 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities) {
     chromosome->totalDistance = totalDistance;
 }
 
-void destroy(Chromosome * chromosome) {
-    free(chromosome->values);
-    free(chromosome);
-}
-
-void print(Chromosome * chromosome) {
-    int i;
-    for (i = 0; i < chromosome->cityNumber; i++) {
-        printf("%d -> ", chromosome->values[i]);
-    }
-    printf("\n");
-}
-
 void validate(Chromosome * chromosome) {
     int i;
     for (i = 0; i < chromosome->cityNumber; i++) {
@@ -63,7 +50,20 @@ void validate(Chromosome * chromosome) {
     }
 }
 
-void initChromosome(Chromosome * chromosome, int cityNumber) {
+void print(Chromosome * chromosome) {
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        printf("%d -> ", chromosome->values[i]);
+    }
+    printf("\n");
+}
+
+void destroy(Chromosome * chromosome) {
+    free(chromosome->values);
+    free(chromosome);
+}
+
+Chromosome * initChromosome(Chromosome * chromosome, int cityNumber) {
     chromosome->values = (int*) malloc(sizeof (int) * cityNumber);
     chromosome->cityNumber = cityNumber;
 
@@ -72,6 +72,8 @@ void initChromosome(Chromosome * chromosome, int cityNumber) {
 
     chromosome->print = &print;
     chromosome->validate = &validate;
+
+    return chromosome;
 }
 
 Chromosome * initChromosome(int cityNumber) {

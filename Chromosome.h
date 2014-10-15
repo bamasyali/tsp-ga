@@ -22,14 +22,12 @@ typedef struct ChromosomeStruct {
     long totalDistance;
 
     void (*calculateTotalDistance)(struct ChromosomeStruct*, struct CityStruct * cities);
-    void (*destroy)(struct ChromosomeStruct*);
-
-    void (*print)(struct ChromosomeStruct*);
     void (*validate)(struct ChromosomeStruct*);
-
+    void (*print)(struct ChromosomeStruct*);
+    void (*destroy)(struct ChromosomeStruct*);
 } Chromosome;
 
-void initChromosome(Chromosome * chromosome, int citySize);
+Chromosome * initChromosome(Chromosome * chromosome, int citySize);
 
 Chromosome * initChromosome(int citySize);
 
