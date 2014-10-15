@@ -183,17 +183,19 @@ int main(int argc, char** argv) {
         }
      */
 
-    /*
-    file = fopen("ch150.opt.tour", "r");
+
+    file = fopen("eil101.opt.tour", "r");
     Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
 
+/*
     for (i = 0; i < CITY_COUNT; i++) {
         printf("%d\n", chromosome->values[i]);
     }
+*/
 
     chromosome->calculateTotalDistance(chromosome, CITY_LIST);
-    printf("\n%lu\n", chromosome->totalDistance);
-     */
+    printf("\n%lf\n", chromosome->totalDistance);
+
 
 
     /*

@@ -19,7 +19,7 @@
 typedef struct ChromosomeStruct {
     int * values;
     int cityNumber;
-    long totalDistance;
+    double totalDistance;
 
     void (*calculateTotalDistance)(struct ChromosomeStruct*, struct CityStruct * cities);
     void (*validate)(struct ChromosomeStruct*);

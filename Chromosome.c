@@ -21,7 +21,7 @@
 
 void calculateTotalDistance(Chromosome * chromosome, City * cities) {
 
-    long totalDistance = 0;
+    double totalDistance = 0;
 
     int i;
     for (i = 0; i < chromosome->cityNumber - 1; i++) {
@@ -31,8 +31,8 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities) {
         totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
     }
 
-    City * c1 = cities + chromosome->cityNumber - 1;
-    City * c2 = cities;
+    City * c1 = cities + chromosome->values[chromosome->cityNumber - 1];
+    City * c2 = cities + chromosome->values[0];
     totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
 
     chromosome->totalDistance = totalDistance;
