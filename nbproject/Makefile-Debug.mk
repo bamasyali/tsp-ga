@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=g++
-CCC=gcc
-CXX=gcc
+CCC=g++
+CXX=g++
 FC=gfortran
 AS=as
 
@@ -67,11 +67,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Chromosome.o: Chromosome.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -139,7 +139,7 @@ ${OBJECTDIR}/main.o: main.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genetic
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/evolutionary-computing
 
 # Subprojects
 .clean-subprojects:

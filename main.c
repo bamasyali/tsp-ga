@@ -62,7 +62,7 @@
 #include "InvertedDisplacementMutation.h"
 #endif
 
-#define CITY_COUNT 150
+#define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
 #define GENERATION_LIMIT 5000
 
@@ -96,7 +96,7 @@ int main(int argc, char** argv) {
 
     srand(sr);
 
-    FILE * file = fopen("ch150.tsp", "r");
+    FILE * file = fopen("eil101.tsp", "r");
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
     Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST);
