@@ -16,15 +16,12 @@ typedef struct CityStruct {
     double lat;
     double lng;
 
-    void (*destroy)(struct CityStruct*);
+    double (*calculateDistance)(struct CityStruct*, struct CityStruct*);
+    double (*calculateDistanceById)(struct CityStruct*, int, int);
     void (*print)(struct CityStruct*);
-
+    void (*destroy)(struct CityStruct*);
 } City;
 
 City * initCity();
 
 City * readCitiesFromFile(FILE * file, int cityNumber);
-
-inline double calculateDistance(City* city1, City* city2);
-
-double calculateDistanceById(City * cities, int city1, int city2);

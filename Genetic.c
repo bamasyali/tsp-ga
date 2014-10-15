@@ -79,7 +79,7 @@ void generateChromosomeUsingNearestNeigbour(Genetic * genetic, Chromosome * chro
             }
 
 
-            double distance = calculateDistance(genetic->cities + city, genetic->cities + i);
+            double distance = genetic->cities->calculateDistance(genetic->cities + city, genetic->cities + i);
 
             if (distance < minDistance) {
                 minDistance = distance;

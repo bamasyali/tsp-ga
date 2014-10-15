@@ -23,18 +23,39 @@
 
 #define nint(a)   ((a) >= 0.0 ? (int)((a)+0.5) : (int)((a)-0.5))
 
-void destroyCity(City * city) {
-    free(city);
+inline double calculateDistance(City* city1, City* city2) {
+    double lat = city1->lat - city2->lat;
+    lat = lat * lat;
+
+    double lng = city1->lng - city2->lng;
+    lng = lng * lng;
+
+    double temp = lat + lng;
+
+    return nint(sqrt(temp));
+}
+
+double calculateDistanceById(City * cities, int city1, int city2) {
+    City * c1 = (cities + city1 - 1);
+    City * c2 = (cities + city2 - 1);
+
+    return calculateDistance(c1, c2);
 }
 
 void printCity(City * city) {
     printf("id=%d, lat=%lf, lng=%lf\n", city->id, city->lat, city->lng);
 }
 
+void destroyCity(City * city) {
+    free(city);
+}
+
 City * initCity() {
     City * city = (City*) malloc(sizeof (City));
-    city->destroy = &destroyCity;
+    city->calculateDistance = &calculateDistance;
+    city->calculateDistanceById = &calculateDistanceById;
     city->print = &printCity;
+    city->destroy = &destroyCity;
     return city;
 }
 
@@ -55,6 +76,9 @@ City * readCitiesFromFile(FILE * file, int cityNumber) {
         temp->id = id;
         temp->lat = lat;
         temp->lng = lng;
+
+        city->calculateDistance = &calculateDistance;
+        city->calculateDistanceById = &calculateDistanceById;
         temp->print = &printCity;
         temp->destroy = &destroyCity;
 
@@ -64,21 +88,4 @@ City * readCitiesFromFile(FILE * file, int cityNumber) {
     return city;
 }
 
-inline double calculateDistance(City* city1, City* city2) {
-    double lat = city1->lat - city2->lat;
-    lat = lat * lat;
 
-    double lng = city1->lng - city2->lng;
-    lng = lng * lng;
-
-    double temp = lat + lng;
-
-    return nint(sqrt(temp));
-}
-
-double calculateDistanceById(City * cities, int city1, int city2) {
-    City * c1 = (cities + city1 - 1);
-    City * c2 = (cities + city2 - 1);
-
-    return calculateDistance(c1, c2);
-}

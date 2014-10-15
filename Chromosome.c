@@ -28,12 +28,12 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities) {
         City * c1 = cities + chromosome->values[i];
         City * c2 = cities + chromosome->values[i + 1];
         //printf("%d %d %d\n", i, c1->id, c2->id);
-        totalDistance += calculateDistanceById(cities, c1->id, c2->id);
+        totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
     }
 
     City * c1 = cities + chromosome->cityNumber - 1;
     City * c2 = cities;
-    totalDistance += calculateDistanceById(cities, c1->id, c2->id);
+    totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
 
     chromosome->totalDistance = totalDistance;
 }
