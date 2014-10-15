@@ -42,12 +42,4 @@ typedef struct GeneticStruct {
 
 Genetic * initGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities);
 
-void destroyGenetic(Genetic * genetic);
 
-void shuffleChromosomes(Genetic * genetic);
-
-void initPopulation(Genetic * genetic, double randomNeighbourRatio);
-
-void printGeneration(Genetic * genetic, int generationNumber);
-
-void replace(Genetic * genetic, Chromosome * child1, Chromosome * child2);

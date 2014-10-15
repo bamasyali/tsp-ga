@@ -19,72 +19,6 @@
 #include "Genetic.h"
 #endif
 
-Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities) {
-    Genetic * genetic = (Genetic *) malloc(sizeof (Genetic));
-
-    genetic->cityNumber = cityNumber;
-    genetic->generation = 0;
-    genetic->generationLimit = generationLimit;
-    genetic->chromosomeNumber = chromosomeNumber;
-    genetic->chromosomes = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
-    genetic->cities = cities;
-
-    int i;
-    for (i = 0; i < chromosomeNumber; i++) {
-        genetic->chromosomes[i].values = (int*) malloc(sizeof (int) * cityNumber);
-        genetic->chromosomes[i].cityNumber = cityNumber;
-        genetic->chromosomes[i].calculateTotalDistance = &calculateTotalDistance;
-        genetic->chromosomes[i].destroy = &destroyChromosome;
-        genetic->chromosomes[i].print = &printChromosome;
-        genetic->chromosomes[i].validate = &validateChromosome;
-    }
-
-    genetic->initPopulation = &initPopulation;
-    genetic->replace = &replace;
-    genetic->shuffle = &shuffleChromosomes;
-    genetic->destroy = &destroyGenetic;
-    genetic->print = &printGeneration;
-
-
-    return genetic;
-}
-
-void destroyGenetic(Genetic * genetic) {
-    int i = 0;
-    for (i = 0; i < genetic->chromosomeNumber; i++) {
-        destroyChromosome((genetic->chromosomes + i));
-    }
-    free(genetic-> chromosomes);
-    free(genetic);
-};
-
-void shuffle(Chromosome * array, int n) {
-    if (n > 1) {
-        int i;
-        for (i = 0; i < n; i++) {
-            int j = rand() % n;
-            Chromosome t = array[j];
-            array[j] = array[i];
-            array[i] = t;
-        }
-    }
-}
-
-void shuffleChromosomes(Genetic * genetic) {
-    Chromosome * array = genetic->chromosomes;
-    int n = genetic->chromosomeNumber;
-
-    if (n > 1) {
-        int i;
-        for (i = 0; i < n; i++) {
-            int j = rand() % n;
-            Chromosome t = array[j];
-            array[j] = array[i];
-            array[i] = t;
-        }
-    }
-}
-
 void shuffleCityArray(int *array, int n) {
     if (n > 1) {
         int i;
@@ -172,25 +106,23 @@ void initPopulation(Genetic * genetic, double randomNeighbourRatio) {
             generateChromosomeUsingNearestNeigbour(genetic, genetic->chromosomes + i);
         }
         genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities);
-        validateChromosome(genetic->chromosomes + i);
+        genetic->chromosomes->validate(genetic->chromosomes + i);
     }
 }
 
-void printGeneration(Genetic * genetic, int generationNumber) {
-    long best = 999999;
-    int j;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        if (genetic->chromosomes[j].totalDistance < best) {
-            best = genetic->chromosomes[j].totalDistance;
+void shuffle(Genetic * genetic) {
+    Chromosome * array = genetic->chromosomes;
+    int n = genetic->chromosomeNumber;
+
+    if (n > 1) {
+        int i;
+        for (i = 0; i < n; i++) {
+            int j = rand() % n;
+            Chromosome t = array[j];
+            array[j] = array[i];
+            array[i] = t;
         }
     }
-
-    long average = 0;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        average += genetic->chromosomes[j].totalDistance;
-    }
-    average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
 }
 
 void replace(Genetic * genetic, Chromosome * child1, Chromosome * child2) {
@@ -219,3 +151,57 @@ void replace(Genetic * genetic, Chromosome * child1, Chromosome * child2) {
     genetic->chromosomes[worstSecond].totalDistance = child2->totalDistance;
     free(child2);
 }
+
+void print(Genetic * genetic, int generationNumber) {
+    long best = 999999;
+    int j;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        if (genetic->chromosomes[j].totalDistance < best) {
+            best = genetic->chromosomes[j].totalDistance;
+        }
+    }
+
+    long average = 0;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        average += genetic->chromosomes[j].totalDistance;
+    }
+    average = average / genetic->chromosomeNumber;
+    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
+}
+
+void destroy(Genetic * genetic) {
+    int i = 0;
+    for (i = 0; i < genetic->chromosomeNumber; i++) {
+        Chromosome * chromosome = genetic->chromosomes + i;
+        chromosome->destroy(chromosome);
+    }
+    free(genetic-> chromosomes);
+    free(genetic);
+};
+
+Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities) {
+    Genetic * genetic = (Genetic *) malloc(sizeof (Genetic));
+
+    genetic->cityNumber = cityNumber;
+    genetic->generation = 0;
+    genetic->generationLimit = generationLimit;
+    genetic->chromosomeNumber = chromosomeNumber;
+    genetic->chromosomes = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
+    genetic->cities = cities;
+
+    int i;
+    for (i = 0; i < chromosomeNumber; i++) {
+        Chromosome * chromosome = genetic->chromosomes + i;
+        initChromosome(chromosome, cityNumber);
+    }
+
+    genetic->initPopulation = &initPopulation;
+    genetic->shuffle = &shuffle;
+    genetic->replace = &replace;
+    genetic->destroy = &destroy;
+    genetic->print = &print;
+
+
+    return genetic;
+}
+

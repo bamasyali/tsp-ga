@@ -23,12 +23,6 @@ typedef struct CityStruct {
 
 City * initCity();
 
-City * initCityWithValues(int id, double lat, double lng);
-
-void destroyCity(City * city);
-
-void printCity(City * city);
-
 City * readCitiesFromFile(FILE * file, int cityNumber);
 
 inline double calculateDistance(City* city1, City* city2);

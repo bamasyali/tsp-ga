@@ -23,29 +23,19 @@
 
 #define nint(a)   ((a) >= 0.0 ? (int)((a)+0.5) : (int)((a)-0.5))
 
-City * initCity() {
-    City * city = (City*) malloc(sizeof (City));
-    city->destroy = &destroyCity;
-    city->print = &printCity;
-    return city;
-}
-
-City * initCityWithValues(int id, double lat, double lng) {
-    City * city = (City*) malloc(sizeof (City));
-    city->id = id;
-    city->lat = lat;
-    city->lng = lng;
-    city->destroy = &destroyCity;
-    city->print = &printCity;
-    return city;
-}
-
 void destroyCity(City * city) {
     free(city);
 }
 
 void printCity(City * city) {
     printf("id=%d, lat=%lf, lng=%lf\n", city->id, city->lat, city->lng);
+}
+
+City * initCity() {
+    City * city = (City*) malloc(sizeof (City));
+    city->destroy = &destroyCity;
+    city->print = &printCity;
+    return city;
 }
 
 City * readCitiesFromFile(FILE * file, int cityNumber) {

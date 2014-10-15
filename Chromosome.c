@@ -19,46 +19,6 @@
 #include "Genetic.h"
 #endif
 
-Chromosome * initChromosome(int cityNumber) {
-    Chromosome * chromosome = (Chromosome *) malloc(sizeof (Chromosome));
-
-    chromosome->values = (int*) malloc(sizeof (int) * cityNumber);
-    chromosome->cityNumber = cityNumber;
-
-    chromosome->calculateTotalDistance = &calculateTotalDistance;
-    chromosome->destroy = &destroyChromosome;
-
-    chromosome->print = &printChromosome;
-    chromosome->validate = &validateChromosome;
-
-    return chromosome;
-}
-
-void destroyChromosome(Chromosome * chromosome) {
-    free(chromosome->values);
-    free(chromosome);
-}
-
-void printChromosome(Chromosome * chromosome) {
-    int i;
-    for (i = 0; i < chromosome->cityNumber; i++) {
-        printf("%d -> ", chromosome->values[i]);
-    }
-    printf("\n");
-}
-
-void validateChromosome(Chromosome * chromosome) {
-    int i;
-    for (i = 0; i < chromosome->cityNumber; i++) {
-        int j;
-        for (j = i + 1; j < chromosome->cityNumber; j++) {
-            if (chromosome->values[i] == chromosome->values[j]) {
-                exit(EXIT_FAILURE);
-            }
-        }
-    }
-}
-
 void calculateTotalDistance(Chromosome * chromosome, City * cities) {
 
     long totalDistance = 0;
@@ -76,6 +36,50 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities) {
     totalDistance += calculateDistanceById(cities, c1->id, c2->id);
 
     chromosome->totalDistance = totalDistance;
+}
+
+void destroy(Chromosome * chromosome) {
+    free(chromosome->values);
+    free(chromosome);
+}
+
+void print(Chromosome * chromosome) {
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        printf("%d -> ", chromosome->values[i]);
+    }
+    printf("\n");
+}
+
+void validate(Chromosome * chromosome) {
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        int j;
+        for (j = i + 1; j < chromosome->cityNumber; j++) {
+            if (chromosome->values[i] == chromosome->values[j]) {
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+}
+
+void initChromosome(Chromosome * chromosome, int cityNumber) {
+    chromosome->values = (int*) malloc(sizeof (int) * cityNumber);
+    chromosome->cityNumber = cityNumber;
+
+    chromosome->calculateTotalDistance = &calculateTotalDistance;
+    chromosome->destroy = &destroy;
+
+    chromosome->print = &print;
+    chromosome->validate = &validate;
+}
+
+Chromosome * initChromosome(int cityNumber) {
+    Chromosome * chromosome = (Chromosome *) malloc(sizeof (Chromosome));
+
+    initChromosome(chromosome, cityNumber);
+
+    return chromosome;
 }
 
 Chromosome * readSolutionFromFile(FILE * file, int cityNumber) {

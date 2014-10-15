@@ -29,15 +29,8 @@ typedef struct ChromosomeStruct {
 
 } Chromosome;
 
+void initChromosome(Chromosome * chromosome, int citySize);
 
 Chromosome * initChromosome(int citySize);
-
-void destroyChromosome(Chromosome * chromosome);
-
-void calculateTotalDistance(Chromosome * chromosome, City * cities);
-
-void printChromosome(Chromosome * chromosome);
-
-void validateChromosome(Chromosome * chromosome);
 
 Chromosome * readSolutionFromFile(FILE * file, int cityNumber);
