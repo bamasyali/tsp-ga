@@ -64,6 +64,7 @@
 
 #define CITY_COUNT 150
 #define MUTATION_PROBABILITY 10
+#define GENERATION_LIMIT 5000
 
 City * CITY_LIST;
 
@@ -82,7 +83,6 @@ int main(int argc, char** argv) {
 
     int chromosomeNumber;
     double randomNeighbourRatio;
-    int generationLimit = 5000;
     int selectionType;
     int mutationType;
     int sr;
@@ -99,10 +99,10 @@ int main(int argc, char** argv) {
     FILE * file = fopen("ch150.tsp", "r");
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
-    Genetic * genetic = initGenetic(CITY_COUNT, generationLimit, chromosomeNumber, CITY_LIST);
+    Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
-   
+
 
     if (selectionType == 1) {
         genetic->selection = &performTournamentSelection;
