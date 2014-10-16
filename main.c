@@ -68,6 +68,12 @@
 
 City * CITY_LIST;
 
+void printReport1(Genetic * genetic, int i) {
+    if (i == 1000 || i == 2500 || i == 5000) {
+        genetic->print(genetic, i);
+    }
+}
+
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -156,8 +162,10 @@ int main(int argc, char** argv) {
 
         genetic->generation++;
 
-        genetic->print(genetic, i);
+        printReport1(genetic, genetic->generation);
     }
+
+
 
 
 
@@ -184,17 +192,17 @@ int main(int argc, char** argv) {
      */
 
 
-    file = fopen("eil101.opt.tour", "r");
-    Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
+    /*
+        file = fopen("eil101.opt.tour", "r");
+        Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
 
-/*
-    for (i = 0; i < CITY_COUNT; i++) {
-        printf("%d\n", chromosome->values[i]);
-    }
-*/
+        for (i = 0; i < CITY_COUNT; i++) {
+            printf("%d\n", chromosome->values[i]);
+        }
 
-    chromosome->calculateTotalDistance(chromosome, CITY_LIST);
-    printf("\n%lf\n", chromosome->totalDistance);
+        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
+        printf("\n%lf\n", chromosome->totalDistance);
+     */
 
 
 

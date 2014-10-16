@@ -154,10 +154,14 @@ void replace(Genetic * genetic, Chromosome * child1, Chromosome * child2) {
 
 void print(Genetic * genetic, int generationNumber) {
     long best = 999999;
+    long worst = 0;
     int j;
     for (j = 0; j < genetic->chromosomeNumber; j++) {
         if (genetic->chromosomes[j].totalDistance < best) {
             best = genetic->chromosomes[j].totalDistance;
+        }
+        if (genetic->chromosomes[j].totalDistance > worst) {
+            worst = genetic->chromosomes[j].totalDistance;
         }
     }
 
@@ -166,7 +170,7 @@ void print(Genetic * genetic, int generationNumber) {
         average += genetic->chromosomes[j].totalDistance;
     }
     average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu\n", generationNumber + 1, best, average);
+    printf("%d ; %lu ; %lu ; %lu\n", generationNumber, best, average, worst);
 }
 
 void destroy(Genetic * genetic) {
