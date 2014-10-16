@@ -172,7 +172,7 @@ int main(int argc, char** argv) {
 
         genetic->generation++;
 
-        printReport3(genetic, genetic->generation);
+        printReport1(genetic, genetic->generation);
     }
 
 
