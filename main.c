@@ -74,6 +74,12 @@ void printReport1(Genetic * genetic, int i) {
     }
 }
 
+void printReport2(Genetic * genetic, int i) {
+    if (i == 5000) {
+        genetic->print(genetic, i);
+    }
+}
+
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -162,7 +168,7 @@ int main(int argc, char** argv) {
 
         genetic->generation++;
 
-        printReport1(genetic, genetic->generation);
+        printReport2(genetic, genetic->generation);
     }
 
 
