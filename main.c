@@ -80,6 +80,10 @@ void printReport2(Genetic * genetic, int i) {
     }
 }
 
+void printReport3(Genetic * genetic, int i) {
+    genetic->print(genetic, i);
+}
+
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -168,7 +172,7 @@ int main(int argc, char** argv) {
 
         genetic->generation++;
 
-        printReport2(genetic, genetic->generation);
+        printReport3(genetic, genetic->generation);
     }
 
 
