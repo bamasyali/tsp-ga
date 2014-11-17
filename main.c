@@ -68,22 +68,6 @@
 
 City * CITY_LIST;
 
-void printReport1(Genetic * genetic, int i) {
-    if (i == 1000 || i == 2500 || i == 5000) {
-        genetic->print(genetic, i);
-    }
-}
-
-void printReport2(Genetic * genetic, int i) {
-    if (i == 5000) {
-        genetic->print(genetic, i);
-    }
-}
-
-void printReport3(Genetic * genetic, int i) {
-    genetic->print(genetic, i);
-}
-
 int main(int argc, char** argv) {
 
     if (argc != 6) {
@@ -171,86 +155,7 @@ int main(int argc, char** argv) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
-
-        printReport1(genetic, genetic->generation);
     }
-
-
-
-
-
-
-    /*
-        best = 999999;
-        int bestId;
-        int j;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            if (genetic->chromosomes[j].totalDistance < best) {
-                best = genetic->chromosomes[j].totalDistance;
-                bestId = j;
-            }
-        }
-     */
-
-    /*
-        for (j = 0; j < CITY_COUNT; j++) {
-            for (int k = j + 1; k < CITY_COUNT; k++) {
-                if (genetic->chromosomes[bestId].values[j] == genetic->chromosomes[bestId].values[k])
-                    printf("Error");
-            }
-        }
-     */
-
-
-    /*
-        file = fopen("eil101.opt.tour", "r");
-        Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
-
-        for (i = 0; i < CITY_COUNT; i++) {
-            printf("%d\n", chromosome->values[i]);
-        }
-
-        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
-        printf("\n%lf\n", chromosome->totalDistance);
-     */
-
-
-
-    /*
-        int i;
-        for (i = 0; i < 50; i++) {
-            Chromosome * ch = genetic->chromosomes + i;
-            ch->calculateTotalDistance(ch, CITY_LIST);
-            printf("%d %d %lu ", i, ch->cityNumber, ch->totalDistance);
-            printf("\n");
-        }
-     */
-
-
-
-
-    /*
-        Chromosome * c1 = initChromosome(9);
-        int myArray[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        c1->values = myArray;
-
-        Genetic * g = initGenetic(9, 1, 1, CITY_LIST);
-
-        g->chromosomes = c1;
-
-        performInvertedDisplacementMutation(g);
-
-        for (i = 0; i < 9; i++) {
-            printf("%d ", c1->values[i]);
-        }
-        printf("\n");
-     */
-
-
-
-
-
-
 
     genetic->destroy;
 

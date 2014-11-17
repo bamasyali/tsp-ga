@@ -87,64 +87,6 @@ label:
         }
     }
 
-
-
-
-
-    /*
-            for (int j = 0; j < 150; j++) {
-                int asd = 0;
-                for (int k = j + 1; k < 150; k++) {
-                    if (newChromosome->values[j] != -1 && newChromosome->values[j] == newChromosome->values[k]) {
-                        printf("Hata! %d %d %d\n\n", j, k, newChromosome->values[j]);
-                    }
-                    if (newChromosome->values[j] == k + 1) {
-                        asd = 1;
-                    }
-                }
-                if (asd = 0) {
-                    printf("Hata! %d", newChromosome->values[i]);
-                }
-            }
-     */
-
-
-
-
-    /*
-        for (int l = 0; l < 150; l++) {
-            printf("%d\n", newChromosome->values[l]);
-        }
-        printf("\n\n");
-     */
-
-
-    /*
-        for (int j = 0; j < 150; j++) {
-            for (int k = j + 1; k < 150; k++) {
-                if (newChromosome->values[j] != -1 && newChromosome->values[j] == newChromosome->values[k]) {
-                    printf("s1 %d\n", s1);
-                    printf("s2 %d\n\n", s2);
-                    for (int l = 0; l < 150; l++) {
-                        printf("%d,", c1->values[l]);
-                    }
-                    printf("\n\n", s2);
-                    for (int l = 0; l < 150; l++) {
-                        printf("%d,", c2->values[l]);
-                    }
-                    printf("\n\n", s2);
-
-                    for (int l = 0; l < 150; l++) {
-                        printf("%d,", newChromosome->values[l]);
-                    }
-                    printf("\n\n", s2);
-
-                }
-            }
-        }
-     */
-
-
     return newChromosome;
 }
 
