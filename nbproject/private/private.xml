@@ -14,7 +14,9 @@
         </group>
         <group name="NodeSer"/>
         <group name="Doktora">
+            <file>file:/opt/projects/genetic/Chromosome.h</file>
             <file>file:/opt/projects/genetic/main.c</file>
+            <file>file:/opt/projects/genetic/eil101.tsp</file>
         </group>
     </open-files>
 </project-private>

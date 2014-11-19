@@ -62,24 +62,52 @@
 #include "InvertedDisplacementMutation.h"
 #endif
 
+#define GENETIC 1
+#define SIMULATED_ANNEALING 1
+#define CITY_COUNT 101
 #define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
 #define GENERATION_LIMIT 5000
 
 City * CITY_LIST;
 
-int main(int argc, char** argv) {
+int genetic(int argc, char** argv);
 
-    if (argc != 6) {
+int simulatedAnnealing(int argc, char** argv);
+
+int main(int argc, char** argv) {
+    if (argc < 1) {
         printf("Invalid Arguments!\n");
         return (EXIT_FAILURE);
     }
 
-    char * chromosomeNumberArgument = argv[1];
-    char * randomNeighbourRatioArgument = argv[2];
-    char * selectionTypeArgument = argv[3];
-    char * mutationTypeArgument = argv[4];
-    char * srandArgument = argv[5];
+    char * methodArgument = argv[1];
+    int method;
+
+    sscanf(methodArgument, "%d", &method);
+
+    if (method == GENETIC) {
+        return genetic(argc, argv);
+    } else if (method == SIMULATED_ANNEALING) {
+        return simulatedAnnealing(argc, argv);
+    } else {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
+
+}
+
+int genetic(int argc, char** argv) {
+    if (argc != 7) {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
+
+    char * chromosomeNumberArgument = argv[2];
+    char * randomNeighbourRatioArgument = argv[3];
+    char * selectionTypeArgument = argv[4];
+    char * mutationTypeArgument = argv[5];
+    char * srandArgument = argv[6];
 
     int chromosomeNumber;
     double randomNeighbourRatio;
@@ -155,10 +183,16 @@ int main(int argc, char** argv) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
+
+        genetic->print(genetic, i);
     }
 
     genetic->destroy;
 
     return (EXIT_SUCCESS);
+}
+
+int simulatedAnnealing(int argc, char** argv) {
+    return 0;
 }
 
