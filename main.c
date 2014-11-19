@@ -86,6 +86,9 @@ int main(int argc, char** argv) {
 
     sscanf(methodArgument, "%d", &method);
 
+    FILE * file = fopen("eil101.tsp", "r");
+    CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
+
     if (method == GENETIC) {
         return genetic(argc, argv);
     } else if (method == SIMULATED_ANNEALING) {
@@ -124,8 +127,6 @@ int genetic(int argc, char** argv) {
 
     srand(sr);
 
-    FILE * file = fopen("eil101.tsp", "r");
-    CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
     Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST);
     genetic->crossover = &performPartiallyMappedCrossover;
@@ -193,6 +194,45 @@ int genetic(int argc, char** argv) {
 }
 
 int simulatedAnnealing(int argc, char** argv) {
+    int iteration = -1;
+
+    double temperature = 10000.0;
+    double deltaDistance = 0;
+    double coolingRate = 0.9999;
+    double absoluteTemperature = 0.00001;
+
+    //Chromosome chromosome = initChromosome(CITY_COUNT);
+
+    //generateChromosomeUsingRandom(genetic, genetic->chromosomes + i);
+
+
+/*
+    double distance = GetTotalDistance(currentOrder);
+
+    while (temperature > absoluteTemperature) {
+        nextOrder = GetNextArrangement(currentOrder);
+
+        deltaDistance = GetTotalDistance(nextOrder) - distance;
+
+        //if the new order has a smaller distance
+        //or if the new order has a larger distance but 
+        //satisfies Boltzman condition then accept the arrangement
+        if ((deltaDistance < 0) || (distance > 0 &&
+                Math.Exp(-deltaDistance / temperature) > random.NextDouble())) {
+            for (int i = 0; i < nextOrder.Count; i++)
+                currentOrder[i] = nextOrder[i];
+
+            distance = deltaDistance + distance;
+        }
+
+        //cool down the temperature
+        temperature *= coolingRate;
+
+        iteration++;
+    }
+
+    shortestDistance = distance;
+*/
     return 0;
 }
 
