@@ -63,7 +63,7 @@
 #endif
 
 #define GENETIC 1
-#define SIMULATED_ANNEALING 1
+#define SIMULATED_ANNEALING 2
 #define CITY_COUNT 101
 #define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
@@ -198,41 +198,30 @@ int simulatedAnnealing(int argc, char** argv) {
 
     double temperature = 10000.0;
     double deltaDistance = 0;
-    double coolingRate = 0.9999;
-    double absoluteTemperature = 0.00001;
+    double coolingRate = 0.95;
+    double absoluteTemperature = 0.01;
 
-    //Chromosome chromosome = initChromosome(CITY_COUNT);
+    Chromosome *chromosome = initChromosome(CITY_COUNT);
 
-    //generateChromosomeUsingRandom(genetic, genetic->chromosomes + i);
+    generateChromosomeUsingRandom(chromosome);
+    chromosome->calculateTotalDistance(chromosome, CITY_LIST);
 
-
-/*
-    double distance = GetTotalDistance(currentOrder);
+    double distance = chromosome->totalDistance;
 
     while (temperature > absoluteTemperature) {
-        nextOrder = GetNextArrangement(currentOrder);
+        performSwapMutation(chromosome);
+        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
 
-        deltaDistance = GetTotalDistance(nextOrder) - distance;
+        deltaDistance = chromosome->totalDistance - distance;
 
-        //if the new order has a smaller distance
-        //or if the new order has a larger distance but 
-        //satisfies Boltzman condition then accept the arrangement
-        if ((deltaDistance < 0) || (distance > 0 &&
-                Math.Exp(-deltaDistance / temperature) > random.NextDouble())) {
-            for (int i = 0; i < nextOrder.Count; i++)
-                currentOrder[i] = nextOrder[i];
-
-            distance = deltaDistance + distance;
-        }
-
-        //cool down the temperature
         temperature *= coolingRate;
 
         iteration++;
+
+        printf("%d %lf\n", iteration, chromosome->totalDistance);
     }
 
-    shortestDistance = distance;
-*/
+
     return 0;
 }
 
