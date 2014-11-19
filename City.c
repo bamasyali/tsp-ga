@@ -19,7 +19,10 @@
 #include "Genetic.h"
 #endif
 
+#ifndef MATH_H
+#define MATH_H 1
 #include <math.h>
+#endif
 
 #define nint(a)   ((a) >= 0.0 ? (int)((a)+0.5) : (int)((a)-0.5))
 

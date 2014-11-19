@@ -84,6 +84,16 @@ Chromosome * initChromosome(int cityNumber) {
     return chromosome;
 }
 
+Chromosome * cloneChromosome(Chromosome * chromosome, int citySize) {
+    Chromosome * clone = initChromosome(citySize);
+    int i;
+    for (i = 0; i < citySize; i++) {
+        clone->values[i] = chromosome->values[i];
+    }
+    clone->totalDistance = chromosome->totalDistance;
+    return clone;
+}
+
 Chromosome * readSolutionFromFile(FILE * file, int cityNumber) {
 
     Chromosome * chromosome = initChromosome(cityNumber);

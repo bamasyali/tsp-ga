@@ -31,6 +31,8 @@ Chromosome * initChromosome(Chromosome * chromosome, int citySize);
 
 Chromosome * initChromosome(int citySize);
 
+Chromosome * cloneChromosome(Chromosome * chromosome, int citySize);
+
 Chromosome * readSolutionFromFile(FILE * file, int cityNumber);
 
 void generateChromosomeUsingRandom(Chromosome * chromosome);

@@ -62,6 +62,11 @@
 #include "InvertedDisplacementMutation.h"
 #endif
 
+#ifndef MATH_H
+#define MATH_H 1
+#include <math.h>
+#endif
+
 #define GENETIC 1
 #define SIMULATED_ANNEALING 2
 #define CITY_COUNT 101
@@ -209,12 +214,25 @@ int simulatedAnnealing(int argc, char** argv) {
     double distance = chromosome->totalDistance;
 
     while (temperature > absoluteTemperature) {
-        performSwapMutation(chromosome);
-        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
 
-        deltaDistance = chromosome->totalDistance - distance;
+        Chromosome * clone = cloneChromosome(chromosome, CITY_COUNT);
+
+        performSwapMutation(clone);
+        clone->calculateTotalDistance(clone, CITY_LIST);
+
+        deltaDistance = clone->totalDistance - distance;
+
+        double random = ((double) rand() / (double) RAND_MAX);
+
+        if ((deltaDistance < 0) || (distance > 0 && exp(-deltaDistance / temperature) > random)) {
+            chromosome->destroy(chromosome);
+            chromosome = clone;
+        } else {
+            clone->destroy(clone);
+        }
 
         temperature *= coolingRate;
+        distance = chromosome->totalDistance;
 
         iteration++;
 
