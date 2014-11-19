@@ -216,8 +216,10 @@ int simulatedAnnealing(int argc, char** argv) {
     while (temperature > absoluteTemperature) {
 
         Chromosome * clone = cloneChromosome(chromosome, CITY_COUNT);
-
-        performSwapMutation(clone);
+        int i;
+        for (i = 0; i < 10; i++) {
+            performSwapMutation(clone);
+        }
         clone->calculateTotalDistance(clone, CITY_LIST);
 
         deltaDistance = clone->totalDistance - distance;
