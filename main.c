@@ -199,7 +199,7 @@ clock_t genetic(int argc, char** argv) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
-        
+
         genetic->print(genetic, i);
     }
 
@@ -248,6 +248,7 @@ clock_t simulatedAnnealing(int argc, char** argv) {
     chromosome->calculateTotalDistance(chromosome, CITY_LIST);
 
     double distance = chromosome->totalDistance;
+    double best = 999999999;
 
     clock_t start_t, end_t, total_t;
     start_t = clock();
@@ -276,14 +277,20 @@ clock_t simulatedAnnealing(int argc, char** argv) {
         temperature *= coolingRate;
         distance = chromosome->totalDistance;
 
+        if (distance < best) {
+            best = distance;
+        }
+
         iteration++;
 
-        printf("%d %lf\n", iteration, chromosome->totalDistance);
     }
 
     end_t = clock();
 
     total_t = (double) (end_t - start_t);
+
+    printf("%lf %lf %lu\n", iteration, best, distance, total_t);
+
     return total_t;
 }
 
