@@ -67,6 +67,11 @@
 #include <math.h>
 #endif
 
+#ifndef TIME_H
+#define TIME_H 1
+#include <time.h>
+#endif
+
 #define GENETIC 1
 #define SIMULATED_ANNEALING 2
 #define CITY_COUNT 101
@@ -76,9 +81,9 @@
 
 City * CITY_LIST;
 
-int genetic(int argc, char** argv);
+clock_t genetic(int argc, char** argv);
 
-int simulatedAnnealing(int argc, char** argv);
+clock_t simulatedAnnealing(int argc, char** argv);
 
 int main(int argc, char** argv) {
     if (argc < 1) {
@@ -95,17 +100,19 @@ int main(int argc, char** argv) {
     CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
 
     if (method == GENETIC) {
-        return genetic(argc, argv);
+        genetic(argc, argv);
     } else if (method == SIMULATED_ANNEALING) {
-        return simulatedAnnealing(argc, argv);
+        simulatedAnnealing(argc, argv);
     } else {
         printf("Invalid Arguments!\n");
         return (EXIT_FAILURE);
     }
 
+    return (EXIT_SUCCESS);
+
 }
 
-int genetic(int argc, char** argv) {
+clock_t genetic(int argc, char** argv) {
     if (argc != 7) {
         printf("Invalid Arguments!\n");
         return (EXIT_FAILURE);
@@ -157,6 +164,9 @@ int genetic(int argc, char** argv) {
         genetic->mutation = &performInvertedDisplacementMutation;
     }
 
+    clock_t start_t, end_t, total_t;
+    start_t = clock();
+
     int i;
     for (i = 0; i < genetic->generationLimit; i++) {
 
@@ -189,16 +199,21 @@ int genetic(int argc, char** argv) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
-
+        
         genetic->print(genetic, i);
     }
 
     genetic->destroy;
 
+    end_t = clock();
+
+    total_t = (double) (end_t - start_t);
+    return total_t;
+
     return (EXIT_SUCCESS);
 }
 
-int simulatedAnnealing(int argc, char** argv) {
+clock_t simulatedAnnealing(int argc, char** argv) {
 
 
     if (argc != 7) {
@@ -234,6 +249,9 @@ int simulatedAnnealing(int argc, char** argv) {
 
     double distance = chromosome->totalDistance;
 
+    clock_t start_t, end_t, total_t;
+    start_t = clock();
+
     int iteration = -1;
     while (temperature > absoluteTemperature) {
 
@@ -263,7 +281,9 @@ int simulatedAnnealing(int argc, char** argv) {
         printf("%d %lf\n", iteration, chromosome->totalDistance);
     }
 
+    end_t = clock();
 
-    return 0;
+    total_t = (double) (end_t - start_t);
+    return total_t;
 }
 
