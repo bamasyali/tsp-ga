@@ -207,20 +207,20 @@ int simulatedAnnealing(int argc, char** argv) {
     }
 
     char * temperatureArgument = argv[2];
-    char * deltaDistanceArgument = argv[3];
+    char * iterationsArgument = argv[3];
     char * coolingRateArgument = argv[4];
     char * absoluteTemperatureArgument = argv[5];
     char * srandArgument = argv[6];
 
     double temperature; // = 10000.0;
-    double deltaDistance; // = 0;
+    int iterations; // = 0;
     double coolingRate; // = 0.95;
     double absoluteTemperature; // = 0.01;
     int sr;
 
 
     sscanf(temperatureArgument, "%lf", &temperature);
-    sscanf(deltaDistanceArgument, "%lf", &deltaDistance);
+    sscanf(iterationsArgument, "%d", &iterations);
     sscanf(coolingRateArgument, "%lf", &coolingRate);
     sscanf(absoluteTemperatureArgument, "%lf", &absoluteTemperature);
     sscanf(srandArgument, "%d", &sr);
@@ -239,12 +239,12 @@ int simulatedAnnealing(int argc, char** argv) {
 
         Chromosome * clone = cloneChromosome(chromosome, CITY_COUNT);
         int i;
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < iterations; i++) {
             performSwapMutation(clone);
         }
         clone->calculateTotalDistance(clone, CITY_LIST);
 
-        deltaDistance = clone->totalDistance - distance;
+        double deltaDistance = clone->totalDistance - distance;
 
         double random = ((double) rand() / (double) RAND_MAX);
 
