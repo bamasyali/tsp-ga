@@ -199,12 +199,33 @@ int genetic(int argc, char** argv) {
 }
 
 int simulatedAnnealing(int argc, char** argv) {
-    int iteration = -1;
 
-    double temperature = 10000.0;
-    double deltaDistance = 0;
-    double coolingRate = 0.95;
-    double absoluteTemperature = 0.01;
+
+    if (argc != 7) {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
+
+    char * temperatureArgument = argv[2];
+    char * deltaDistanceArgument = argv[3];
+    char * coolingRateArgument = argv[4];
+    char * absoluteTemperatureArgument = argv[5];
+    char * srandArgument = argv[6];
+
+    double temperature; // = 10000.0;
+    double deltaDistance; // = 0;
+    double coolingRate; // = 0.95;
+    double absoluteTemperature; // = 0.01;
+    int sr;
+
+
+    sscanf(temperatureArgument, "%lf", &temperature);
+    sscanf(deltaDistanceArgument, "%lf", &deltaDistance);
+    sscanf(coolingRateArgument, "%lf", &coolingRate);
+    sscanf(absoluteTemperatureArgument, "%lf", &absoluteTemperature);
+    sscanf(srandArgument, "%d", &sr);
+
+    srand(sr);
 
     Chromosome *chromosome = initChromosome(CITY_COUNT);
 
@@ -213,6 +234,7 @@ int simulatedAnnealing(int argc, char** argv) {
 
     double distance = chromosome->totalDistance;
 
+    int iteration = -1;
     while (temperature > absoluteTemperature) {
 
         Chromosome * clone = cloneChromosome(chromosome, CITY_COUNT);
