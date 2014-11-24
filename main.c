@@ -289,7 +289,7 @@ clock_t simulatedAnnealing(int argc, char** argv) {
 
     total_t = (double) (end_t - start_t);
 
-    printf("%lf %lf %lu\n", iteration, best, distance, total_t);
+    printf("%lf %lf %lu\n", best, distance, total_t);
 
     return total_t;
 }
