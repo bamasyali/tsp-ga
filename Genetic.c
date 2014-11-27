@@ -95,7 +95,7 @@ void print(Genetic * genetic, int generationNumber) {
         average += genetic->chromosomes[j].totalDistance;
     }
     average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu ; %lu\n", generationNumber, best, average, worst);
+    printf("GA ; %d ; %lu ; %lu ; %lu\n", generationNumber, best, average, worst);
 }
 
 void destroy(Genetic * genetic) {

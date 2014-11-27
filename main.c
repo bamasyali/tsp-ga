@@ -74,6 +74,7 @@
 
 #define GENETIC 1
 #define SIMULATED_ANNEALING 2
+#define BOTH 3
 #define CITY_COUNT 101
 #define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
@@ -83,7 +84,9 @@ City * CITY_LIST;
 
 clock_t genetic(int argc, char** argv);
 
-clock_t simulatedAnnealing(int argc, char** argv);
+clock_t simulatedAnnealing(int argc, char** argv, clock_t timeLimit, Chromosome * chromosome);
+
+Chromosome * best = NULL;
 
 int main(int argc, char** argv) {
     if (argc < 1) {
@@ -102,7 +105,10 @@ int main(int argc, char** argv) {
     if (method == GENETIC) {
         genetic(argc, argv);
     } else if (method == SIMULATED_ANNEALING) {
-        simulatedAnnealing(argc, argv);
+        simulatedAnnealing(argc, argv, -1, NULL);
+    } else if (method == BOTH) {
+        clock_t timeLimit = genetic(argc, argv);
+        simulatedAnnealing(argc, argv, timeLimit, best);
     } else {
         printf("Invalid Arguments!\n");
         return (EXIT_FAILURE);
@@ -113,16 +119,7 @@ int main(int argc, char** argv) {
 }
 
 clock_t genetic(int argc, char** argv) {
-    if (argc != 7) {
-        printf("Invalid Arguments!\n");
-        return (EXIT_FAILURE);
-    }
 
-    char * chromosomeNumberArgument = argv[2];
-    char * randomNeighbourRatioArgument = argv[3];
-    char * selectionTypeArgument = argv[4];
-    char * mutationTypeArgument = argv[5];
-    char * srandArgument = argv[6];
 
     int chromosomeNumber;
     double randomNeighbourRatio;
@@ -130,12 +127,34 @@ clock_t genetic(int argc, char** argv) {
     int mutationType;
     int sr;
 
+    if (argc == 7) {
 
-    sscanf(chromosomeNumberArgument, "%d", &chromosomeNumber);
-    sscanf(randomNeighbourRatioArgument, "%lf", &randomNeighbourRatio);
-    sscanf(selectionTypeArgument, "%d", &selectionType);
-    sscanf(mutationTypeArgument, "%d", &mutationType);
-    sscanf(srandArgument, "%d", &sr);
+        char * chromosomeNumberArgument = argv[2];
+        char * randomNeighbourRatioArgument = argv[3];
+        char * selectionTypeArgument = argv[4];
+        char * mutationTypeArgument = argv[5];
+        char * srandArgument = argv[6];
+
+
+        sscanf(chromosomeNumberArgument, "%d", &chromosomeNumber);
+        sscanf(randomNeighbourRatioArgument, "%lf", &randomNeighbourRatio);
+        sscanf(selectionTypeArgument, "%d", &selectionType);
+        sscanf(mutationTypeArgument, "%d", &mutationType);
+        sscanf(srandArgument, "%d", &sr);
+
+    } else if (argc == 3) {
+        char * srandArgument = argv[2];
+        sscanf(srandArgument, "%d", &sr);
+
+        chromosomeNumber = 50;
+        randomNeighbourRatio = 1;
+        selectionType = 1;
+        mutationType = 3;
+
+    } else {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
 
     srand(sr);
 
@@ -144,6 +163,15 @@ clock_t genetic(int argc, char** argv) {
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
 
+
+    long best_size = 999999;
+    int j;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        if (genetic->chromosomes[j].totalDistance < best_size) {
+            best_size = genetic->chromosomes[j].totalDistance;
+            best = genetic->chromosomes + j;
+        }
+    }
 
     if (selectionType == 1) {
         genetic->selection = &performTournamentSelection;
@@ -199,9 +227,9 @@ clock_t genetic(int argc, char** argv) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
-
-        genetic->print(genetic, i);
     }
+
+    genetic->print(genetic, i);
 
     genetic->destroy;
 
@@ -213,19 +241,7 @@ clock_t genetic(int argc, char** argv) {
     return (EXIT_SUCCESS);
 }
 
-clock_t simulatedAnnealing(int argc, char** argv) {
-
-
-    if (argc != 7) {
-        printf("Invalid Arguments!\n");
-        return (EXIT_FAILURE);
-    }
-
-    char * temperatureArgument = argv[2];
-    char * iterationsArgument = argv[3];
-    char * coolingRateArgument = argv[4];
-    char * absoluteTemperatureArgument = argv[5];
-    char * srandArgument = argv[6];
+clock_t simulatedAnnealing(int argc, char** argv, clock_t timeLimit, Chromosome * chromosome) {
 
     double temperature; // = 10000.0;
     int iterations; // = 0;
@@ -233,28 +249,58 @@ clock_t simulatedAnnealing(int argc, char** argv) {
     double absoluteTemperature; // = 0.01;
     int sr;
 
+    if (argc == 7) {
 
-    sscanf(temperatureArgument, "%lf", &temperature);
-    sscanf(iterationsArgument, "%d", &iterations);
-    sscanf(coolingRateArgument, "%lf", &coolingRate);
-    sscanf(absoluteTemperatureArgument, "%lf", &absoluteTemperature);
-    sscanf(srandArgument, "%d", &sr);
+
+        char * temperatureArgument = argv[2];
+        char * iterationsArgument = argv[3];
+        char * coolingRateArgument = argv[4];
+        char * absoluteTemperatureArgument = argv[5];
+        char * srandArgument = argv[6];
+
+
+
+
+        sscanf(temperatureArgument, "%lf", &temperature);
+        sscanf(iterationsArgument, "%d", &iterations);
+        sscanf(coolingRateArgument, "%lf", &coolingRate);
+        sscanf(absoluteTemperatureArgument, "%lf", &absoluteTemperature);
+        sscanf(srandArgument, "%d", &sr);
+    } else if (argc == 3) {
+        char * srandArgument = argv[2];
+        sscanf(srandArgument, "%d", &sr);
+
+        temperature = 10000.0;
+        iterations = 2;
+        coolingRate = 0.995;
+        absoluteTemperature = 0.01;
+
+    } else {
+        printf("Invalid Arguments!\n");
+        return (EXIT_FAILURE);
+    }
+
+
 
     srand(sr);
 
-    Chromosome *chromosome = initChromosome(CITY_COUNT);
+    if (chromosome == NULL) {
+        chromosome = initChromosome(CITY_COUNT);
 
-    generateChromosomeUsingRandom(chromosome);
-    chromosome->calculateTotalDistance(chromosome, CITY_LIST);
+        generateChromosomeUsingRandom(chromosome);
+        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
+    }
 
     double distance = chromosome->totalDistance;
-    double best = 999999999;
+    double best_point = 999999999;
 
     clock_t start_t, end_t, total_t;
     start_t = clock();
+    end_t = clock();
+    total_t = (double) (end_t - start_t);
 
-    int iteration = -1;
-    while (temperature > absoluteTemperature) {
+    int iteration = 0;
+    while (timeLimit == -1 ? temperature > absoluteTemperature : timeLimit > total_t) {
 
         Chromosome * clone = cloneChromosome(chromosome, CITY_COUNT);
         int i;
@@ -277,19 +323,18 @@ clock_t simulatedAnnealing(int argc, char** argv) {
         temperature *= coolingRate;
         distance = chromosome->totalDistance;
 
-        if (distance < best) {
-            best = distance;
+        if (distance < best_point) {
+            best_point = distance;
         }
 
         iteration++;
 
+        end_t = clock();
+
+        total_t = (double) (end_t - start_t);
+
     }
-
-    end_t = clock();
-
-    total_t = (double) (end_t - start_t);
-
-    printf("%lf %lf %lu\n", best, distance, total_t);
+    printf("SA;%lf;%lu\n", best_point, total_t);
 
     return total_t;
 }
