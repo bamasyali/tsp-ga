@@ -172,6 +172,8 @@ clock_t genetic(int argc, char** argv) {
             best = genetic->chromosomes + j;
         }
     }
+    
+    best = cloneChromosome(best,CITY_COUNT);
 
     if (selectionType == 1) {
         genetic->selection = &performTournamentSelection;
@@ -292,7 +294,7 @@ clock_t simulatedAnnealing(int argc, char** argv, clock_t timeLimit, Chromosome 
     }
 
     double distance = chromosome->totalDistance;
-    double best_point = 999999999;
+    long best_point = 999999999;
 
     clock_t start_t, end_t, total_t;
     start_t = clock();
@@ -334,7 +336,7 @@ clock_t simulatedAnnealing(int argc, char** argv, clock_t timeLimit, Chromosome 
         total_t = (double) (end_t - start_t);
 
     }
-    printf("SA;%lf;%lu\n", best_point, total_t);
+    printf("SA ; %lu\n", best_point);
 
     return total_t;
 }
