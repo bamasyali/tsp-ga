@@ -32,3 +32,7 @@ Chromosome * initChromosome(Chromosome * chromosome, int citySize);
 Chromosome * initChromosome(int citySize);
 
 Chromosome * readSolutionFromFile(FILE * file, int cityNumber);
+
+void generateChromosomeUsingRandom(Chromosome * chromosome);
+
+void generateChromosomeUsingNearestNeigbour(Chromosome * chromosome, City * cities);

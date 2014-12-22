@@ -97,3 +97,75 @@ Chromosome * readSolutionFromFile(FILE * file, int cityNumber) {
 
     return chromosome;
 }
+
+void shuffleCityArray(int *array, int n) {
+    if (n > 1) {
+        int i;
+        for (i = 0; i < n; i++) {
+            int j = rand() % n;
+            int t = array[j];
+            array[j] = array[i];
+            array[i] = t;
+        }
+    }
+}
+
+void generateChromosomeUsingRandom(Chromosome * chromosome) {
+
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        chromosome->values[i] = i + 1;
+    }
+
+    shuffleCityArray(chromosome->values, chromosome->cityNumber);
+}
+
+void generateChromosomeUsingNearestNeigbour(Chromosome * chromosome, City * cities) {
+
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        chromosome->values[i] = -1;
+    }
+
+    int index = 0;
+
+    int city = rand() % chromosome->cityNumber;
+    chromosome->values[index++] = city;
+
+    while (index < chromosome->cityNumber) {
+
+        double minDistance = 999999999;
+        int nearestCity = -1;
+
+        for (i = 0; i < chromosome->cityNumber; i++) {
+
+            if (i == city) {
+                continue;
+            }
+
+            int cont = 0;
+
+            int j;
+            for (j = 0; j < index; j++) {
+                if (i == chromosome->values[j]) {
+                    cont = 1;
+                    break;
+                }
+            }
+
+            if (cont == 1) {
+                continue;
+            }
+
+
+            double distance = cities->calculateDistance(cities + city, cities + i);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestCity = i;
+            }
+        }
+
+        chromosome->values[index++] = nearestCity;
+    }
+}
