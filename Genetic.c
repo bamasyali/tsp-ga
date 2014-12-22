@@ -183,6 +183,53 @@ void destroy(Genetic * genetic) {
     free(genetic);
 };
 
+Chromosome * run(Genetic * genetic) {
+    int i;
+    for (i = 0; i < genetic->generationLimit; i++) {
+
+        genetic->shuffle(genetic);
+
+        Chromosome ** selection = genetic->selection(genetic);
+
+        Chromosome * c1 = selection[0];
+        Chromosome * c2 = selection[1];
+
+        Chromosome ** children = genetic->crossover(genetic, c1, c2);
+
+        Chromosome * child1 = children[0];
+        Chromosome * child2 = children[1];
+
+
+        int random = rand() % 100;
+        if (random < genetic->mutationProbablity) {
+            genetic->mutation(child1);
+        }
+
+        random = rand() % 100;
+        if (random < genetic->mutationProbablity) {
+            genetic->mutation(child2);
+        }
+
+        child1->calculateTotalDistance(child1, genetic->cities);
+        child2->calculateTotalDistance(child2, genetic->cities);
+
+        genetic->replace(genetic, child1, child2);
+
+        genetic->generation++;
+    }
+
+    long best = 999999;
+    Chromosome * bestChromosome;
+    int j;
+    for (j = 0; j < genetic->chromosomeNumber; j++) {
+        if (genetic->chromosomes[j].totalDistance < best) {
+            best = genetic->chromosomes[j].totalDistance;
+            bestChromosome = genetic->chromosomes + j;
+        }
+    }
+    return bestChromosome;
+}
+
 Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities) {
     Genetic * genetic = (Genetic *) malloc(sizeof (Genetic));
 
@@ -204,8 +251,10 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     genetic->replace = &replace;
     genetic->destroy = &destroy;
     genetic->print = &print;
+    genetic->run = &run;
 
 
     return genetic;
 }
+
 

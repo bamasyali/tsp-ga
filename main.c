@@ -118,6 +118,7 @@ int main(int argc, char** argv) {
     Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
+    genetic->mutationProbablity = MUTATION_PROBABILITY;
 
 
     if (selectionType == 1) {
@@ -139,118 +140,9 @@ int main(int argc, char** argv) {
         genetic->mutation = &performInvertedDisplacementMutation;
     }
 
-    int i;
-    for (i = 0; i < genetic->generationLimit; i++) {
-
-        genetic->shuffle(genetic);
-
-        Chromosome ** selection = genetic->selection(genetic);
-
-        Chromosome * c1 = selection[0];
-        Chromosome * c2 = selection[1];
-
-        Chromosome ** children = genetic->crossover(genetic, c1, c2);
-
-        Chromosome * child1 = children[0];
-        Chromosome * child2 = children[1];
-
-
-        int random = rand() % 100;
-        if (random < MUTATION_PROBABILITY) {
-            genetic->mutation(child1);
-        }
-
-        random = rand() % 100;
-        if (random < MUTATION_PROBABILITY) {
-            genetic->mutation(child2);
-        }
-
-        child1->calculateTotalDistance(child1, genetic->cities);
-        child2->calculateTotalDistance(child2, genetic->cities);
-
-        genetic->replace(genetic, child1, child2);
-
-        genetic->generation++;
-
-        printReport1(genetic, genetic->generation);
-    }
-
-
-
-
-
-
-    /*
-        best = 999999;
-        int bestId;
-        int j;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            if (genetic->chromosomes[j].totalDistance < best) {
-                best = genetic->chromosomes[j].totalDistance;
-                bestId = j;
-            }
-        }
-     */
-
-    /*
-        for (j = 0; j < CITY_COUNT; j++) {
-            for (int k = j + 1; k < CITY_COUNT; k++) {
-                if (genetic->chromosomes[bestId].values[j] == genetic->chromosomes[bestId].values[k])
-                    printf("Error");
-            }
-        }
-     */
-
-
-    /*
-        file = fopen("eil101.opt.tour", "r");
-        Chromosome * chromosome = readSolutionFromFile(file, CITY_COUNT);
-
-        for (i = 0; i < CITY_COUNT; i++) {
-            printf("%d\n", chromosome->values[i]);
-        }
-
-        chromosome->calculateTotalDistance(chromosome, CITY_LIST);
-        printf("\n%lf\n", chromosome->totalDistance);
-     */
-
-
-
-    /*
-        int i;
-        for (i = 0; i < 50; i++) {
-            Chromosome * ch = genetic->chromosomes + i;
-            ch->calculateTotalDistance(ch, CITY_LIST);
-            printf("%d %d %lu ", i, ch->cityNumber, ch->totalDistance);
-            printf("\n");
-        }
-     */
-
-
-
-
-    /*
-        Chromosome * c1 = initChromosome(9);
-        int myArray[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        c1->values = myArray;
-
-        Genetic * g = initGenetic(9, 1, 1, CITY_LIST);
-
-        g->chromosomes = c1;
-
-        performInvertedDisplacementMutation(g);
-
-        for (i = 0; i < 9; i++) {
-            printf("%d ", c1->values[i]);
-        }
-        printf("\n");
-     */
-
-
-
-
-
-
+    Chromosome * best = genetic->run(genetic);
+    
+    printf("Best = %lf", best->totalDistance);
 
     genetic->destroy;
 
