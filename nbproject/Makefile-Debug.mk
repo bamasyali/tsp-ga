@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/InsertMutation.o \
 	${OBJECTDIR}/InversionMutation.o \
 	${OBJECTDIR}/InvertedDisplacementMutation.o \
+	${OBJECTDIR}/MemoryGenetic.o \
 	${OBJECTDIR}/PartiallyMappedCrossover.o \
 	${OBJECTDIR}/RandomMutation.o \
 	${OBJECTDIR}/SwapMutation.o \
@@ -107,6 +108,11 @@ ${OBJECTDIR}/InvertedDisplacementMutation.o: InvertedDisplacementMutation.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InvertedDisplacementMutation.o InvertedDisplacementMutation.c
+
+${OBJECTDIR}/MemoryGenetic.o: MemoryGenetic.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryGenetic.o MemoryGenetic.c
 
 ${OBJECTDIR}/PartiallyMappedCrossover.o: PartiallyMappedCrossover.c 
 	${MKDIR} -p ${OBJECTDIR}

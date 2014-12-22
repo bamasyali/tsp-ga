@@ -11,6 +11,7 @@
       <itemPath>InsertMutation.h</itemPath>
       <itemPath>InversionMutation.h</itemPath>
       <itemPath>InvertedDisplacementMutation.h</itemPath>
+      <itemPath>MemoryGenetic.h</itemPath>
       <itemPath>PartiallyMappedCrossover.h</itemPath>
       <itemPath>RandomMutation.h</itemPath>
       <itemPath>SwapMutation.h</itemPath>
@@ -26,6 +27,7 @@
       <itemPath>InsertMutation.c</itemPath>
       <itemPath>InversionMutation.c</itemPath>
       <itemPath>InvertedDisplacementMutation.c</itemPath>
+      <itemPath>MemoryGenetic.c</itemPath>
       <itemPath>PartiallyMappedCrossover.c</itemPath>
       <itemPath>RandomMutation.c</itemPath>
       <itemPath>SwapMutation.c</itemPath>
@@ -90,6 +92,10 @@
       <item path="InvertedDisplacementMutation.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="InvertedDisplacementMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MemoryGenetic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MemoryGenetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -161,6 +167,10 @@
       <item path="InvertedDisplacementMutation.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="InvertedDisplacementMutation.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MemoryGenetic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="MemoryGenetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PartiallyMappedCrossover.c" ex="false" tool="0" flavor2="0">
       </item>
