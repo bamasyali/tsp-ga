@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=g++
-CCC=g++
-CXX=g++
+CCC=gcc
+CXX=gcc
 FC=gfortran
 AS=as
 

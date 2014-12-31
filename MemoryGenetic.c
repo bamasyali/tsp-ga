@@ -53,8 +53,11 @@ void shuffleChromosomes(Chromosome * array, int size) {
     }
 }
 
-void shuffle(MemoryGenetic * genetic) {
+void shuffleMemory(MemoryGenetic * genetic) {
     shuffleChromosomes(genetic->memoryPopulation, genetic->chromosomeNumber);
+}
+
+void shuffleSearch(MemoryGenetic * genetic) {
     shuffleChromosomes(genetic->searchPopulation, genetic->chromosomeNumber);
 }
 
@@ -129,35 +132,43 @@ Chromosome * run(MemoryGenetic * genetic) {
     int i;
     for (i = 0; i < genetic->generationLimit; i++) {
 
-        genetic->shuffle(genetic);
+        int j;
+        for (j = 0; j < 100; j++) {
+            genetic->shuffleMemory(genetic);
 
-        Chromosome ** selection = genetic->selection(genetic);
+            Chromosome ** selection = genetic->selection(genetic);
 
-        Chromosome * c1 = selection[0];
-        Chromosome * c2 = selection[1];
+            Chromosome * c1 = selection[0];
+            Chromosome * c2 = selection[1];
 
-        Chromosome ** children = genetic->crossover(genetic, c1, c2);
+            Chromosome ** children = genetic->crossover(genetic, c1, c2);
 
-        Chromosome * child1 = children[0];
-        Chromosome * child2 = children[1];
+            Chromosome * child1 = children[0];
+            Chromosome * child2 = children[1];
 
 
-        int random = rand() % 100;
-        if (random < genetic->mutationProbablity) {
-            genetic->mutation(child1);
+            int random = rand() % 100;
+            if (random < genetic->mutationProbablity) {
+                genetic->mutation(child1);
+            }
+
+            random = rand() % 100;
+            if (random < genetic->mutationProbablity) {
+                genetic->mutation(child2);
+            }
+
+            child1->calculateTotalDistance(child1, genetic->cities);
+            child2->calculateTotalDistance(child2, genetic->cities);
+
+            genetic->replace(genetic, child1, child2);
+
+            genetic->generation++;
         }
 
-        random = rand() % 100;
-        if (random < genetic->mutationProbablity) {
-            genetic->mutation(child2);
+        for (j = 0; j < 100; j++) {
+
         }
 
-        child1->calculateTotalDistance(child1, genetic->cities);
-        child2->calculateTotalDistance(child2, genetic->cities);
-
-        genetic->replace(genetic, child1, child2);
-
-        genetic->generation++;
     }
 
     long best = 999999;
@@ -197,7 +208,8 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
     }
 
     genetic->initPopulation = &initPopulation;
-    genetic->shuffle = &shuffle;
+    genetic->shuffleMemory = &shuffleMemory;
+    genetic->shuffleSearch = &shuffleSearch;
     genetic->replace = &replace;
     genetic->destroy = &destroy;
     genetic->print = &print;
