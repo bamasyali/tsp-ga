@@ -119,7 +119,7 @@ Chromosome * run(Genetic * genetic) {
         Chromosome * c1 = selection[0];
         Chromosome * c2 = selection[1];
 
-        Chromosome ** children = genetic->crossover(genetic, c1, c2);
+        Chromosome ** children = genetic->crossover(c1, c2, genetic->cityNumber);
 
         Chromosome * child1 = children[0];
         Chromosome * child2 = children[1];
