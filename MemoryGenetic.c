@@ -168,8 +168,15 @@ Chromosome * run(MemoryGenetic * genetic) {
         for (j = 0; j < 100; j++) {
             int k;
             for (k = 0; k < genetic->chromosomeNumber; k++) {
-                Chromosome * chromosome = genetic->searchPopulation + k;                
-                genetic->mutation(chromosome);
+                Chromosome * chromosome = genetic->searchPopulation + k;
+                Chromosome * clone = chromosome->clone(chromosome);
+                genetic->mutation(clone);
+                clone->calculateTotalDistance(clone, genetic->cities);
+                if (clone->totalDistance < chromosome->totalDistance) {
+                    chromosome->values = clone->values;
+                    chromosome->totalDistance = clone->totalDistance;
+                }
+                clone->destroy(clone);
             }
         }
 
