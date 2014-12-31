@@ -166,7 +166,11 @@ Chromosome * run(MemoryGenetic * genetic) {
         }
 
         for (j = 0; j < 100; j++) {
-
+            int k;
+            for (k = 0; k < genetic->chromosomeNumber; k++) {
+                Chromosome * chromosome = genetic->searchPopulation + k;                
+                genetic->mutation(chromosome);
+            }
         }
 
     }

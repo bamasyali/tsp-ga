@@ -23,6 +23,7 @@ typedef struct ChromosomeStruct {
 
     void (*calculateTotalDistance)(struct ChromosomeStruct*, struct CityStruct * cities);
     void (*validate)(struct ChromosomeStruct*);
+    struct ChromosomeStruct* (*clone)(struct ChromosomeStruct*);
     void (*print)(struct ChromosomeStruct*);
     void (*destroy)(struct ChromosomeStruct*);
 } Chromosome;

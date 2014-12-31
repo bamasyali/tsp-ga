@@ -63,11 +63,22 @@ void destroy(Chromosome * chromosome) {
     free(chromosome);
 }
 
+Chromosome * cloneChromosome(Chromosome * chromosome) {
+    Chromosome * clone = initChromosome(chromosome->cityNumber);
+    int i;
+    for (i = 0; i < chromosome->cityNumber; i++) {
+        clone->values[i] = chromosome->values[i];
+    }
+    clone->totalDistance = chromosome->totalDistance;
+    return clone;
+}
+
 Chromosome * initChromosome(Chromosome * chromosome, int cityNumber) {
     chromosome->values = (int*) malloc(sizeof (int) * cityNumber);
     chromosome->cityNumber = cityNumber;
 
     chromosome->calculateTotalDistance = &calculateTotalDistance;
+    chromosome->clone = &cloneChromosome;
     chromosome->destroy = &destroy;
 
     chromosome->print = &print;
