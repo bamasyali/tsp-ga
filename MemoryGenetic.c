@@ -136,7 +136,7 @@ Chromosome * run(MemoryGenetic * genetic) {
         for (j = 0; j < 100; j++) {
             genetic->shuffleMemory(genetic);
 
-            Chromosome ** selection = genetic->selection(genetic);
+            Chromosome ** selection = genetic->selection(genetic->memoryPopulation, genetic->chromosomeNumber);
 
             Chromosome * c1 = selection[0];
             Chromosome * c2 = selection[1];

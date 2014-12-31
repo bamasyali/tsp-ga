@@ -36,7 +36,7 @@ typedef struct MemoryGeneticStruct {
     void (*initPopulation)(struct MemoryGeneticStruct*, double randomNeighbourRatio);
     void (*shuffleMemory)(struct MemoryGeneticStruct*);
     void (*shuffleSearch)(struct MemoryGeneticStruct*);
-    Chromosome ** (*selection)(struct MemoryGeneticStruct*);
+    Chromosome ** (*selection)(Chromosome * chromosomes, int chromosomeNumber);
     Chromosome ** (*crossover)(struct MemoryGeneticStruct*, Chromosome *, Chromosome *);
     void (*replace)(struct MemoryGeneticStruct*, Chromosome *, Chromosome *);
     void (*mutation)(struct ChromosomeStruct*);
