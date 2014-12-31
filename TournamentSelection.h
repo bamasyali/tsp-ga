@@ -26,4 +26,4 @@
 #include "Genetic.h"
 #endif
 
-Chromosome ** performTournamentSelection(Genetic * genetic);
+Chromosome ** performTournamentSelection(Chromosome * chromosomes, int chromosomeNumber);

@@ -52,11 +52,6 @@
 #include "RandomMutation.h"
 #endif
 
-#ifndef RANKING_H
-#define RANKING_H 1
-#include "ExponentialRankingSelection.h"
-#endif
-
 #ifndef DISPLACEMENT_H
 #define DISPLACEMENT 1
 #include "InvertedDisplacementMutation.h"
@@ -121,12 +116,7 @@ int main(int argc, char** argv) {
     genetic->mutationProbablity = MUTATION_PROBABILITY;
 
 
-    if (selectionType == 1) {
-        genetic->selection = &performTournamentSelection;
-    } else if (selectionType == 2) {
-        initRanks(genetic);
-        genetic->selection = &performExponentialRankingSelection;
-    }
+    genetic->selection = &performTournamentSelection;
 
     if (mutationType == 1) {
         genetic->mutation = &performSwapMutation;
@@ -141,7 +131,7 @@ int main(int argc, char** argv) {
     }
 
     Chromosome * best = genetic->run(genetic);
-    
+
     printf("Best = %lf", best->totalDistance);
 
     genetic->destroy;

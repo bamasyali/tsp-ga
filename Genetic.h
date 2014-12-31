@@ -32,7 +32,7 @@ typedef struct GeneticStruct {
 
     void (*initPopulation)(struct GeneticStruct*, double randomNeighbourRatio);
     void (*shuffle)(struct GeneticStruct*);
-    Chromosome ** (*selection)(struct GeneticStruct*);
+    Chromosome ** (*selection)(Chromosome * chromosomes, int chromosomeNumber);
     Chromosome ** (*crossover)(struct GeneticStruct*, Chromosome *, Chromosome *);
     void (*replace)(struct GeneticStruct*, Chromosome *, Chromosome *);
     void (*mutation)(struct ChromosomeStruct*);

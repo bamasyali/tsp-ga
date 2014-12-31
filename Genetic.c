@@ -114,7 +114,7 @@ Chromosome * run(Genetic * genetic) {
 
         genetic->shuffle(genetic);
 
-        Chromosome ** selection = genetic->selection(genetic);
+        Chromosome ** selection = genetic->selection(genetic->chromosomes, genetic->chromosomeNumber);
 
         Chromosome * c1 = selection[0];
         Chromosome * c2 = selection[1];

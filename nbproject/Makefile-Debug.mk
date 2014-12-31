@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Chromosome.o \
 	${OBJECTDIR}/City.o \
-	${OBJECTDIR}/ExponentialRankingSelection.o \
 	${OBJECTDIR}/Genetic.o \
 	${OBJECTDIR}/InsertMutation.o \
 	${OBJECTDIR}/InversionMutation.o \
@@ -83,11 +82,6 @@ ${OBJECTDIR}/City.o: City.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/City.o City.c
-
-${OBJECTDIR}/ExponentialRankingSelection.o: ExponentialRankingSelection.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ExponentialRankingSelection.o ExponentialRankingSelection.c
 
 ${OBJECTDIR}/Genetic.o: Genetic.c 
 	${MKDIR} -p ${OBJECTDIR}

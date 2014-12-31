@@ -29,41 +29,41 @@
 
 #define TOURNAMENT_SIZE 5
 
-Chromosome ** performTournamentSelection(Genetic * genetic) {
+Chromosome ** performTournamentSelection(Chromosome * chromosomes, int chromosomeNumber) {
 
     Chromosome ** result = (Chromosome**) malloc(2 * sizeof (Chromosome*));
 
-    int random = rand() % (genetic->chromosomeNumber - TOURNAMENT_SIZE);
+    int random = rand() % (chromosomeNumber - TOURNAMENT_SIZE);
 
     int best;
     long bestDistance = 99999999;
     int i;
     for (i = random; i < random + TOURNAMENT_SIZE; i++) {
-        if (genetic->chromosomes[i].totalDistance < bestDistance) {
+        if (chromosomes[i].totalDistance < bestDistance) {
             best = i;
-            bestDistance = genetic->chromosomes[i].totalDistance;
+            bestDistance = chromosomes[i].totalDistance;
         }
     }
 
-    result[0] = genetic->chromosomes + best;
+    result[0] = chromosomes + best;
 
     int best2 = best;
 
     while (best == best2) {
 
-        random = rand() % (genetic->chromosomeNumber - (TOURNAMENT_SIZE));
+        random = rand() % (chromosomeNumber - (TOURNAMENT_SIZE));
 
         bestDistance = 99999999;
         for (i = random; i < random + TOURNAMENT_SIZE; i++) {
-            if (genetic->chromosomes[i].totalDistance < bestDistance) {
+            if (chromosomes[i].totalDistance < bestDistance) {
                 best2 = i;
-                bestDistance = genetic->chromosomes[i].totalDistance;
+                bestDistance = chromosomes[i].totalDistance;
             }
         }
 
     }
 
-    result[1] = genetic->chromosomes + best2;
+    result[1] = chromosomes + best2;
 
     return result;
 }
