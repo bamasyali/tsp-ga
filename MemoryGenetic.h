@@ -28,6 +28,7 @@ typedef struct MemoryGeneticStruct {
     int chromosomeNumber; // Chromosome number
     int mutationProbablity;
     int memoryUpdateFrequency;
+    int explicitMemorySize;
     Chromosome * searchPopulation;
     Chromosome * memoryPopulation;
     Chromosome * explicitMemory;
@@ -46,6 +47,6 @@ typedef struct MemoryGeneticStruct {
 
 } MemoryGenetic;
 
-MemoryGenetic * initMemoryGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities);
+MemoryGenetic * initMemoryGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities, int memoryUpdateFrequency);
 
 

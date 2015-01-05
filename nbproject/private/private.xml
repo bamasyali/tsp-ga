@@ -13,6 +13,8 @@
             <file>file:/home/bamasyali/Doktora/Dersler/Evolutionary%20Computing/Project1/Sources/GeneticAlgorithm/PartiallyMappedCrossover.h</file>
         </group>
         <group name="NodeSer"/>
-        <group name="Doktora"/>
+        <group name="Doktora">
+            <file>file:/opt/projects/genetic/MemoryGenetic.c</file>
+        </group>
     </open-files>
 </project-private>

@@ -25,6 +25,10 @@
 #include "Genetic.h"
 #endif
 
+#ifndef MEMORY_GENETIC_H
+#define MEMORY_GENETIC_H 1
+#include "MemoryGenetic.h"
+#endif
 
 #ifndef PMC_H
 #define PMC_H 1

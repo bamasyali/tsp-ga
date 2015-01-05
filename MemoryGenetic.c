@@ -14,9 +14,8 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
+#ifndef MEMORY_GENETIC_H
+#define MEMORY_GENETIC_H 1
 #include "MemoryGenetic.h"
 #endif
 
@@ -180,21 +179,33 @@ Chromosome * run(MemoryGenetic * genetic) {
             }
         }
 
-    }
+        long best = 999999;
+        Chromosome * bestChromosome;
+        for (j = 0; j < genetic->chromosomeNumber; j++) {
+            if (genetic->memoryPopulation[j].totalDistance < best) {
+                best = genetic->memoryPopulation[j].totalDistance;
+                bestChromosome = genetic->memoryPopulation + j;
+            }
 
-    long best = 999999;
-    Chromosome * bestChromosome;
-    int j;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        if (genetic->memoryPopulation[j].totalDistance < best) {
-            best = genetic->memoryPopulation[j].totalDistance;
-            bestChromosome = genetic->memoryPopulation + j;
+            if (genetic->searchPopulation[j].totalDistance < best) {
+                best = genetic->searchPopulation[j].totalDistance;
+                bestChromosome = genetic->searchPopulation + j;
+            }
         }
+
+        if (i & genetic->memoryUpdateFrequency == 0) {
+            if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
+                genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
+                genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
+            }else{
+                //TODO Mindist
+            }
+        }
+
     }
-    return bestChromosome;
 }
 
-MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities) {
+MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, int memoryUpdateFrequency) {
     MemoryGenetic * genetic = (MemoryGenetic *) malloc(sizeof (MemoryGenetic));
 
     genetic->cityNumber = cityNumber;
@@ -205,6 +216,8 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
     genetic->searchPopulation = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
     genetic->explicitMemory = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
     genetic->cities = cities;
+    genetic->memoryUpdateFrequency = memoryUpdateFrequency;
+    genetic->explicitMemorySize = 0;
 
     int i;
     for (i = 0; i < chromosomeNumber; i++) {
