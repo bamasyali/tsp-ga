@@ -111,10 +111,13 @@ int main(int argc, char** argv) {
 
     srand(sr);
 
-    FILE * file = fopen("eil101.tsp", "r");
-    CITY_LIST = readCitiesFromFile(file, CITY_COUNT);
+    FILE * cityFile = fopen("eil101.tsp", "r");
+    CITY_LIST = readCitiesFromFile(cityFile, CITY_COUNT);
 
-    Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST);
+    FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
+    CityTraffic * traffic = readCityTrafficFromFile(cityTrafficFile, CITY_COUNT);
+
+    Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, traffic);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
     genetic->mutationProbablity = MUTATION_PROBABILITY;

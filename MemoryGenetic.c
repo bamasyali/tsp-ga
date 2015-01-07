@@ -32,10 +32,10 @@ void initPopulation(MemoryGenetic * genetic, double randomNeighbourRatio) {
             generateChromosomeUsingNearestNeigbour(genetic->memoryPopulation + i, genetic->cities);
             generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + i, genetic->cities);
         }
-        genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities);
+        genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, genetic->traffic);
         genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
 
-        genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities);
+        genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities, genetic->traffic);
         genetic->searchPopulation->validate(genetic->searchPopulation + i);
     }
 }
@@ -156,8 +156,8 @@ Chromosome * run(MemoryGenetic * genetic) {
                 genetic->mutation(child2);
             }
 
-            child1->calculateTotalDistance(child1, genetic->cities);
-            child2->calculateTotalDistance(child2, genetic->cities);
+            child1->calculateTotalDistance(child1, genetic->cities, genetic->traffic);
+            child2->calculateTotalDistance(child2, genetic->cities, genetic->traffic);
 
             genetic->replace(genetic, child1, child2);
 
@@ -170,7 +170,7 @@ Chromosome * run(MemoryGenetic * genetic) {
                 Chromosome * chromosome = genetic->searchPopulation + k;
                 Chromosome * clone = chromosome->clone(chromosome);
                 genetic->mutation(clone);
-                clone->calculateTotalDistance(clone, genetic->cities);
+                clone->calculateTotalDistance(clone, genetic->cities, genetic->traffic);
                 if (clone->totalDistance < chromosome->totalDistance) {
                     chromosome->values = clone->values;
                     chromosome->totalDistance = clone->totalDistance;
@@ -197,7 +197,7 @@ Chromosome * run(MemoryGenetic * genetic) {
             if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
                 genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
                 genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
-            }else{
+            } else {
                 //TODO Mindist
             }
         }

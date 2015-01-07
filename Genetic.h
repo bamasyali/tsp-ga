@@ -29,6 +29,7 @@ typedef struct GeneticStruct {
     int mutationProbablity;
     Chromosome * chromosomes;
     City * cities;
+    CityTraffic * traffic;
 
     void (*initPopulation)(struct GeneticStruct*, double randomNeighbourRatio);
     void (*shuffle)(struct GeneticStruct*);
@@ -42,6 +43,6 @@ typedef struct GeneticStruct {
 
 } Genetic;
 
-Genetic * initGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities);
+Genetic * initGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities, CityTraffic * traffic);
 
 

@@ -21,7 +21,7 @@ typedef struct ChromosomeStruct {
     int cityNumber;
     double totalDistance;
 
-    void (*calculateTotalDistance)(struct ChromosomeStruct*, struct CityStruct * cities);
+    void (*calculateTotalDistance)(struct ChromosomeStruct*, struct CityStruct * cities, CityTraffic * traffic);
     void (*validate)(struct ChromosomeStruct*);
     struct ChromosomeStruct* (*clone)(struct ChromosomeStruct*);
     void (*print)(struct ChromosomeStruct*);

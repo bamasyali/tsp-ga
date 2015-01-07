@@ -30,7 +30,7 @@ void initPopulation(Genetic * genetic, double randomNeighbourRatio) {
         } else {
             generateChromosomeUsingNearestNeigbour(genetic->chromosomes + i, genetic->cities);
         }
-        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities);
+        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities, genetic->traffic);
         genetic->chromosomes->validate(genetic->chromosomes + i);
     }
 }
@@ -135,8 +135,8 @@ Chromosome * run(Genetic * genetic) {
             genetic->mutation(child2);
         }
 
-        child1->calculateTotalDistance(child1, genetic->cities);
-        child2->calculateTotalDistance(child2, genetic->cities);
+        child1->calculateTotalDistance(child1, genetic->cities, genetic->traffic);
+        child2->calculateTotalDistance(child2, genetic->cities, genetic->traffic);
 
         genetic->replace(genetic, child1, child2);
 
@@ -155,7 +155,7 @@ Chromosome * run(Genetic * genetic) {
     return bestChromosome;
 }
 
-Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities) {
+Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, CityTraffic * traffic) {
     Genetic * genetic = (Genetic *) malloc(sizeof (Genetic));
 
     genetic->cityNumber = cityNumber;
@@ -164,6 +164,7 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     genetic->chromosomeNumber = chromosomeNumber;
     genetic->chromosomes = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
     genetic->cities = cities;
+    genetic->traffic = traffic;
 
     int i;
     for (i = 0; i < chromosomeNumber; i++) {

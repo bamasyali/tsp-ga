@@ -108,7 +108,7 @@ CityTraffic * readCityTrafficFromFile(FILE * file, int cityNumber) {
     CityTraffic * cityTraffic = initCityTraffic(cityNumber);
 
     int i;
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 11; i++) {
         fscanf(file, "%d", &city1);
         fscanf(file, "%d", &city2);
         fscanf(file, "%lf", &traffic);
