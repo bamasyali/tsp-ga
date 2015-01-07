@@ -106,7 +106,7 @@ void destroy(MemoryGenetic * genetic) {
     free(genetic);
 };
 
-Chromosome * run(MemoryGenetic * genetic) {
+Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
 
     //Init population
     {
@@ -117,10 +117,10 @@ Chromosome * run(MemoryGenetic * genetic) {
             generateChromosomeUsingRandom(genetic->memoryPopulation + i);
             generateChromosomeUsingRandom(genetic->searchPopulation + i);
 
-            genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, genetic->traffic);
+            genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, traffic);
             genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
 
-            genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities, genetic->traffic);
+            genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities, traffic);
             genetic->searchPopulation->validate(genetic->searchPopulation + i);
         }
     }
@@ -153,8 +153,8 @@ Chromosome * run(MemoryGenetic * genetic) {
                 genetic->mutation(child2);
             }
 
-            child1->calculateTotalDistance(child1, genetic->cities, genetic->traffic);
-            child2->calculateTotalDistance(child2, genetic->cities, genetic->traffic);
+            child1->calculateTotalDistance(child1, genetic->cities, traffic);
+            child2->calculateTotalDistance(child2, genetic->cities, traffic);
 
             genetic->replace(genetic, child1, child2);
 
@@ -167,7 +167,7 @@ Chromosome * run(MemoryGenetic * genetic) {
                 Chromosome * chromosome = genetic->searchPopulation + k;
                 Chromosome * clone = chromosome->clone(chromosome);
                 genetic->mutation(clone);
-                clone->calculateTotalDistance(clone, genetic->cities, genetic->traffic);
+                clone->calculateTotalDistance(clone, genetic->cities, traffic);
                 if (clone->totalDistance < chromosome->totalDistance) {
                     chromosome->values = clone->values;
                     chromosome->totalDistance = clone->totalDistance;
@@ -202,7 +202,7 @@ Chromosome * run(MemoryGenetic * genetic) {
     }
 }
 
-MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, CityTraffic * traffic, int memoryUpdateFrequency) {
+MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, int memoryUpdateFrequency) {
     MemoryGenetic * genetic = (MemoryGenetic *) malloc(sizeof (MemoryGenetic));
 
     genetic->cityNumber = cityNumber;
@@ -215,7 +215,6 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
     genetic->cities = cities;
     genetic->memoryUpdateFrequency = memoryUpdateFrequency;
     genetic->explicitMemorySize = 0;
-    genetic->traffic = traffic;
 
     int i;
     for (i = 0; i < chromosomeNumber; i++) {

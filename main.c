@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
     FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
     CityTraffic * traffic = readCityTrafficFromFile(cityTrafficFile, CITY_COUNT);
 
-    MemoryGenetic * genetic = initMemoryGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, traffic, MEMORY_UPDATE_FREQUENCY);
+    MemoryGenetic * genetic = initMemoryGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, MEMORY_UPDATE_FREQUENCY);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->mutationProbablity = MUTATION_PROBABILITY;
 
@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
         genetic->mutation = &performInvertedDisplacementMutation;
     }
 
-    Chromosome * best = genetic->run(genetic);
+    Chromosome * best = genetic->run(genetic, traffic);
 
     printf("Best = %lf", best->totalDistance);
 

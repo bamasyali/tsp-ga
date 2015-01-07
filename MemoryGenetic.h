@@ -33,7 +33,6 @@ typedef struct MemoryGeneticStruct {
     Chromosome * memoryPopulation;
     Chromosome * explicitMemory;
     City * cities;
-    CityTraffic * traffic;
 
     void (*shuffleMemory)(struct MemoryGeneticStruct*);
     void (*shuffleSearch)(struct MemoryGeneticStruct*);
@@ -43,10 +42,10 @@ typedef struct MemoryGeneticStruct {
     void (*mutation)(struct ChromosomeStruct*);
     void (*destroy)(struct MemoryGeneticStruct*);
     void (*print)(struct MemoryGeneticStruct*, int generationNumber);
-    Chromosome * (*run)(struct MemoryGeneticStruct*);
+    Chromosome * (*run)(struct MemoryGeneticStruct*, CityTraffic * traffic);
 
 } MemoryGenetic;
 
-MemoryGenetic * initMemoryGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities, CityTraffic * traffic, int memoryUpdateFrequency);
+MemoryGenetic * initMemoryGenetic(int citySize, int generationLimit, int chromosomeSize, City * cities, int memoryUpdateFrequency);
 
 
