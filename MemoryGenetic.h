@@ -35,7 +35,6 @@ typedef struct MemoryGeneticStruct {
     City * cities;
     CityTraffic * traffic;
 
-    void (*initPopulation)(struct MemoryGeneticStruct*, double randomNeighbourRatio);
     void (*shuffleMemory)(struct MemoryGeneticStruct*);
     void (*shuffleSearch)(struct MemoryGeneticStruct*);
     Chromosome ** (*selection)(Chromosome * chromosomes, int chromosomeNumber);

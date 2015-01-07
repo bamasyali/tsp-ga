@@ -19,27 +19,6 @@
 #include "MemoryGenetic.h"
 #endif
 
-void initPopulation(MemoryGenetic * genetic, double randomNeighbourRatio) {
-    int i;
-    int chromosomeSize = genetic->chromosomeNumber;
-    int randomChromosomeNumber = randomNeighbourRatio * chromosomeSize;
-
-    for (i = 0; i < chromosomeSize; i++) {
-        if (i < randomChromosomeNumber) {
-            generateChromosomeUsingRandom(genetic->memoryPopulation + i);
-            generateChromosomeUsingRandom(genetic->searchPopulation + i);
-        } else {
-            generateChromosomeUsingNearestNeigbour(genetic->memoryPopulation + i, genetic->cities);
-            generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + i, genetic->cities);
-        }
-        genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, genetic->traffic);
-        genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
-
-        genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities, genetic->traffic);
-        genetic->searchPopulation->validate(genetic->searchPopulation + i);
-    }
-}
-
 void shuffleChromosomes(Chromosome * array, int size) {
     if (size > 1) {
         int i;
@@ -128,6 +107,24 @@ void destroy(MemoryGenetic * genetic) {
 };
 
 Chromosome * run(MemoryGenetic * genetic) {
+
+    //Init population
+    {
+        int i;
+        int chromosomeSize = genetic->chromosomeNumber;
+
+        for (i = 0; i < chromosomeSize; i++) {
+            generateChromosomeUsingRandom(genetic->memoryPopulation + i);
+            generateChromosomeUsingRandom(genetic->searchPopulation + i);
+
+            genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, genetic->traffic);
+            genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
+
+            genetic->searchPopulation[i].calculateTotalDistance(genetic->searchPopulation + i, genetic->cities, genetic->traffic);
+            genetic->searchPopulation->validate(genetic->searchPopulation + i);
+        }
+    }
+
     int i;
     for (i = 0; i < genetic->generationLimit; i++) {
 
@@ -232,7 +229,6 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
         initChromosome(chromosome, cityNumber);
     }
 
-    genetic->initPopulation = &initPopulation;
     genetic->shuffleMemory = &shuffleMemory;
     genetic->shuffleSearch = &shuffleSearch;
     genetic->replace = &replace;

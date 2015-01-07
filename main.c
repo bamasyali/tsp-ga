@@ -115,9 +115,7 @@ int main(int argc, char** argv) {
 
     MemoryGenetic * genetic = initMemoryGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, traffic, MEMORY_UPDATE_FREQUENCY);
     genetic->crossover = &performPartiallyMappedCrossover;
-    genetic->initPopulation(genetic, randomNeighbourRatio);
     genetic->mutationProbablity = MUTATION_PROBABILITY;
-
 
     genetic->selection = &performTournamentSelection;
 
