@@ -59,6 +59,18 @@ City * initCity() {
     return city;
 }
 
+CityTraffic * initCityTraffic(int cityNumber) {
+    CityTraffic * cityTraffic = (CityTraffic*) malloc(sizeof (CityTraffic));
+    cityTraffic->traffic = (double*) malloc(sizeof (double) * cityNumber * cityNumber);
+
+    int i;
+    for (i = 0; i < cityNumber * cityNumber; i++) {
+        cityTraffic->traffic[i] = 1;
+    }
+
+    return cityTraffic;
+}
+
 City * readCitiesFromFile(FILE * file, int cityNumber) {
     int i;
     int id;
@@ -86,6 +98,25 @@ City * readCitiesFromFile(FILE * file, int cityNumber) {
     }
 
     return city;
+}
+
+CityTraffic * readCityTrafficFromFile(FILE * file, int cityNumber) {
+    int city1;
+    int city2;
+    double traffic;
+
+    CityTraffic * cityTraffic = initCityTraffic(cityNumber);
+
+    int i;
+    for (i = 0; i < 3; i++) {
+        fscanf(file, "%d", &city1);
+        fscanf(file, "%d", &city2);
+        fscanf(file, "%lf", &traffic);
+
+        cityTraffic->traffic[city1 * cityNumber + city2] = traffic;
+    }
+
+    return cityTraffic;
 }
 
 
