@@ -1,11 +1,6 @@
-1 2 2
-1 3 100
-21 4 24
-11 5 232
-21 6 25
-41 7 223
-13 8 2523
-31 9 25
-13 10 223
-14 18 2
-32 36 4
+5
+eil101.traffic_1.tsp
+eil101.traffic_2.tsp
+eil101.traffic_3.tsp
+eil101.traffic_4.tsp
+eil101.traffic_5.tsp

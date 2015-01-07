@@ -59,18 +59,6 @@ City * initCity() {
     return city;
 }
 
-CityTraffic * initCityTraffic(int cityNumber) {
-    CityTraffic * cityTraffic = (CityTraffic*) malloc(sizeof (CityTraffic));
-    cityTraffic->traffic = (double*) malloc(sizeof (double) * cityNumber * cityNumber);
-
-    int i;
-    for (i = 0; i < cityNumber * cityNumber; i++) {
-        cityTraffic->traffic[i] = 1;
-    }
-
-    return cityTraffic;
-}
-
 City * readCitiesFromFile(FILE * file, int cityNumber) {
     int i;
     int id;
@@ -100,19 +88,44 @@ City * readCitiesFromFile(FILE * file, int cityNumber) {
     return city;
 }
 
+void initCityTraffic(CityTraffic * cityTraffic, int cityNumber) {
+
+    cityTraffic->traffic = (double*) malloc(sizeof (double) * cityNumber * cityNumber);
+    int i;
+    for (i = 0; i < cityNumber * cityNumber; i++) {
+        cityTraffic->traffic[i] = 1;
+    }
+}
+
 CityTraffic * readCityTrafficFromFile(FILE * file, int cityNumber) {
-    int city1;
-    int city2;
-    double traffic;
 
-    CityTraffic * cityTraffic = initCityTraffic(cityNumber);
+    int fileNumber;
+    fscanf(file, "%d", &fileNumber);
 
-    while (!feof(file)) {
-        fscanf(file, "%d", &city1);
-        fscanf(file, "%d", &city2);
-        fscanf(file, "%lf", &traffic);
+    CityTraffic * cityTraffic = (CityTraffic*) malloc(fileNumber * sizeof (CityTraffic));
 
-        cityTraffic->traffic[city1 * cityNumber + city2] = traffic;
+    int i;
+    for (i = 0; i < fileNumber; i++) {
+
+        int city1;
+        int city2;
+        double traffic;
+
+        initCityTraffic(cityTraffic + i, cityNumber);
+
+        char fileName[20];
+        fscanf(file, "%s", fileName);
+        printf("%s\n", fileName);
+
+        FILE * trafficFile = fopen(fileName, "r");
+
+        while (!feof(trafficFile)) {
+            fscanf(trafficFile, "%d", &city1);
+            fscanf(trafficFile, "%d", &city2);
+            fscanf(trafficFile, "%lf", &traffic);
+
+            (cityTraffic + i)->traffic[city1 * cityNumber + city2] = traffic;
+        }
     }
 
     return cityTraffic;
