@@ -20,11 +20,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #ifndef MEMORY_GENETIC_H
 #define MEMORY_GENETIC_H 1
 #include "MemoryGenetic.h"
@@ -64,22 +59,23 @@
 #define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
 #define GENERATION_LIMIT 5000
+#define MEMORY_UPDATE_FREQUENCY 10
 
 City * CITY_LIST;
 
-void printReport1(Genetic * genetic, int i) {
+void printReport1(MemoryGenetic * genetic, int i) {
     if (i == 1000 || i == 2500 || i == 5000) {
         genetic->print(genetic, i);
     }
 }
 
-void printReport2(Genetic * genetic, int i) {
+void printReport2(MemoryGenetic * genetic, int i) {
     if (i == 5000) {
         genetic->print(genetic, i);
     }
 }
 
-void printReport3(Genetic * genetic, int i) {
+void printReport3(MemoryGenetic * genetic, int i) {
     genetic->print(genetic, i);
 }
 
@@ -117,7 +113,7 @@ int main(int argc, char** argv) {
     FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
     CityTraffic * traffic = readCityTrafficFromFile(cityTrafficFile, CITY_COUNT);
 
-    Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, traffic);
+    MemoryGenetic * genetic = initMemoryGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, traffic, MEMORY_UPDATE_FREQUENCY);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->initPopulation(genetic, randomNeighbourRatio);
     genetic->mutationProbablity = MUTATION_PROBABILITY;

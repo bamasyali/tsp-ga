@@ -21,9 +21,5 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
 
  Chromosome ** performPartiallyMappedCrossover(Chromosome * c1, Chromosome * c2, int cityNumber);

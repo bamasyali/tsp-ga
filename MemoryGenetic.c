@@ -205,7 +205,7 @@ Chromosome * run(MemoryGenetic * genetic) {
     }
 }
 
-MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, int memoryUpdateFrequency) {
+MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, CityTraffic * traffic, int memoryUpdateFrequency) {
     MemoryGenetic * genetic = (MemoryGenetic *) malloc(sizeof (MemoryGenetic));
 
     genetic->cityNumber = cityNumber;
@@ -218,6 +218,7 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
     genetic->cities = cities;
     genetic->memoryUpdateFrequency = memoryUpdateFrequency;
     genetic->explicitMemorySize = 0;
+    genetic->traffic = traffic;
 
     int i;
     for (i = 0; i < chromosomeNumber; i++) {
