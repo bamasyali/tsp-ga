@@ -118,8 +118,6 @@ int main(int argc, char** argv) {
 
     Chromosome * best = genetic->run(genetic, traffic);
 
-    printf("Best = %lf", best->totalDistance);
-
     genetic->destroy;
 
     return (EXIT_SUCCESS);
