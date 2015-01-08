@@ -226,6 +226,7 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
                 genetic->explicitMemory[genetic->explicitMemorySize].values = clone->values;
                 genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = clone->totalDistance;
                 free(clone);
+                genetic->explicitMemorySize++;
             } else {
                 long worst = 0;
                 Chromosome * worstChromosome;
@@ -264,11 +265,36 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
                 genetic->searchPopulation[j].calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
                 genetic->searchPopulation->validate(genetic->searchPopulation + j);
             }
+
+            long bestInExplicit = 999999;
+            long worstInMemory = 0;
+
+            do {
+                Chromosome * worstChromosome;
+                Chromosome * bestChromosome;
+                for (j = 0; j < genetic->chromosomeNumber; j++) {
+                    if (genetic->memoryPopulation[j].totalDistance > worstInMemory) {
+                        worstInMemory = genetic->memoryPopulation[j].totalDistance;
+                        worstChromosome = genetic->memoryPopulation + j;
+                    }
+                    if (j < genetic->explicitMemorySize) {
+                        if (genetic->explicitMemory[j].totalDistance < bestInExplicit) {
+                            bestInExplicit = genetic->explicitMemory[j].totalDistance;
+                            bestChromosome = genetic->explicitMemory + j;
+                        }
+                    }
+                }
+
+                if (bestInExplicit < worstInMemory) {
+                    Chromosome * clone = bestChromosome->clone(bestChromosome);
+                    worstChromosome->values = clone->values;
+                    worstChromosome->totalDistance = clone->totalDistance;
+                    free(clone);
+                }
+            } while (bestInExplicit < worstInMemory);
         }
 
         genetic->printMemory(genetic, i);
-        genetic->printSearch(genetic, i);
-
 
 
 
