@@ -138,7 +138,7 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
     for (i = 0; i < genetic->generationLimit; i++) {
 
         int j;
-        for (j = 0; j < 100; j++) {
+        for (j = 0; j < 10; j++) {
             genetic->shuffleMemory(genetic);
 
             Chromosome ** selection = genetic->selection(genetic->memoryPopulation, genetic->chromosomeNumber);
@@ -170,10 +170,10 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
             genetic->generation++;
         }
 
-        genetic->printMemory(genetic, i);
 
 
-        for (j = 0; j < 100; j++) {
+
+        for (j = 0; j < 10; j++) {
             int k;
             for (k = 0; k < genetic->chromosomeNumber; k++) {
                 Chromosome * chromosome = genetic->searchPopulation + k;
@@ -191,7 +191,7 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
             }
         }
 
-        genetic->printSearch(genetic, i);
+
 
 
 
@@ -209,16 +209,30 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
             }
         }
 
-        if (i & genetic->memoryUpdateFrequency == 0) {
-            if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
-                genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
-                genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
-            } else {
-                //TODO Mindist
+        if (i > 0 && i % 1000 == 0) {
+
+            traffic++;
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                genetic->memoryPopulation->calculateTotalDistance(genetic->memoryPopulation + j, genetic->cities, traffic);
+                genetic->searchPopulation->calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
             }
         }
+        
+        
+        genetic->printMemory(genetic, i);
+        genetic->printSearch(genetic, i);
 
 
+        /*
+                if (i & genetic->memoryUpdateFrequency == 0) {
+                    if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
+                        genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
+                        genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
+                    } else {
+                        //TODO Mindist
+                    }
+                }
+         */
 
     }
 }
