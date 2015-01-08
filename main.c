@@ -63,21 +63,6 @@
 
 City * CITY_LIST;
 
-void printReport1(MemoryGenetic * genetic, int i) {
-    if (i == 1000 || i == 2500 || i == 5000) {
-        genetic->print(genetic, i);
-    }
-}
-
-void printReport2(MemoryGenetic * genetic, int i) {
-    if (i == 5000) {
-        genetic->print(genetic, i);
-    }
-}
-
-void printReport3(MemoryGenetic * genetic, int i) {
-    genetic->print(genetic, i);
-}
 
 int main(int argc, char** argv) {
 

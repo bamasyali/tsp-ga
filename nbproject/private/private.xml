@@ -15,8 +15,6 @@
         <group name="NodeSer"/>
         <group name="Doktora">
             <file>file:/opt/projects/genetic/MemoryGenetic.c</file>
-            <file>file:/opt/projects/genetic/MemoryGenetic.h</file>
-            <file>file:/opt/projects/genetic/main.c</file>
         </group>
     </open-files>
 </project-private>

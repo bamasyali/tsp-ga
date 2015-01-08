@@ -41,7 +41,8 @@ typedef struct MemoryGeneticStruct {
     void (*replace)(struct MemoryGeneticStruct*, Chromosome *, Chromosome *);
     void (*mutation)(struct ChromosomeStruct*);
     void (*destroy)(struct MemoryGeneticStruct*);
-    void (*print)(struct MemoryGeneticStruct*, int generationNumber);
+    void (*printMemory)(struct MemoryGeneticStruct*, int generationNumber);
+    void (*printSearch)(struct MemoryGeneticStruct*, int generationNumber);
     Chromosome * (*run)(struct MemoryGeneticStruct*, CityTraffic * traffic);
 
 } MemoryGenetic;

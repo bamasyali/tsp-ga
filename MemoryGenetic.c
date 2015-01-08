@@ -66,7 +66,7 @@ void replace(MemoryGenetic * genetic, Chromosome * child1, Chromosome * child2) 
     free(child2);
 }
 
-void print(MemoryGenetic * genetic, int generationNumber) {
+void printMemory(MemoryGenetic * genetic, int generationNumber) {
     long best = 999999;
     long worst = 0;
     int j;
@@ -78,13 +78,22 @@ void print(MemoryGenetic * genetic, int generationNumber) {
             worst = genetic->memoryPopulation[j].totalDistance;
         }
     }
+    printf("%d ; %lu ; %lu\n", generationNumber, best, worst);
+}
 
-    long average = 0;
+void printSearch(MemoryGenetic * genetic, int generationNumber) {
+    long best = 999999;
+    long worst = 0;
+    int j;
     for (j = 0; j < genetic->chromosomeNumber; j++) {
-        average += genetic->memoryPopulation[j].totalDistance;
+        if (genetic->searchPopulation[j].totalDistance < best) {
+            best = genetic->searchPopulation[j].totalDistance;
+        }
+        if (genetic->searchPopulation[j].totalDistance > worst) {
+            worst = genetic->searchPopulation[j].totalDistance;
+        }
     }
-    average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu ; %lu\n", generationNumber, best, average, worst);
+    printf("%d ; %lu ; %lu\n", generationNumber, best, worst);
 }
 
 void destroy(MemoryGenetic * genetic) {
@@ -161,6 +170,9 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
             genetic->generation++;
         }
 
+        genetic->printMemory(genetic, i);
+
+
         for (j = 0; j < 100; j++) {
             int k;
             for (k = 0; k < genetic->chromosomeNumber; k++) {
@@ -169,35 +181,44 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
                 genetic->mutation(clone);
                 clone->calculateTotalDistance(clone, genetic->cities, traffic);
                 if (clone->totalDistance < chromosome->totalDistance) {
+                    free(chromosome->values);
                     chromosome->values = clone->values;
                     chromosome->totalDistance = clone->totalDistance;
+                    free(clone);
+                } else {
+                    clone->destroy(clone);
                 }
-                clone->destroy(clone);
             }
         }
 
-        long best = 999999;
-        Chromosome * bestChromosome;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            if (genetic->memoryPopulation[j].totalDistance < best) {
-                best = genetic->memoryPopulation[j].totalDistance;
-                bestChromosome = genetic->memoryPopulation + j;
-            }
+        genetic->printSearch(genetic, i);
 
-            if (genetic->searchPopulation[j].totalDistance < best) {
-                best = genetic->searchPopulation[j].totalDistance;
-                bestChromosome = genetic->searchPopulation + j;
-            }
-        }
 
-        if (i & genetic->memoryUpdateFrequency == 0) {
-            if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
-                genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
-                genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
-            } else {
-                //TODO Mindist
-            }
-        }
+        /*
+                long best = 999999;
+                Chromosome * bestChromosome;
+                for (j = 0; j < genetic->chromosomeNumber; j++) {
+                    if (genetic->memoryPopulation[j].totalDistance < best) {
+                        best = genetic->memoryPopulation[j].totalDistance;
+                        bestChromosome = genetic->memoryPopulation + j;
+                    }
+
+                    if (genetic->searchPopulation[j].totalDistance < best) {
+                        best = genetic->searchPopulation[j].totalDistance;
+                        bestChromosome = genetic->searchPopulation + j;
+                    }
+                }
+
+                if (i & genetic->memoryUpdateFrequency == 0) {
+                    if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
+                        genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
+                        genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
+                    } else {
+                        //TODO Mindist
+                    }
+                }
+         */
+
 
     }
 }
@@ -232,7 +253,8 @@ MemoryGenetic * initMemoryGenetic(int cityNumber, int generationLimit, int chrom
     genetic->shuffleSearch = &shuffleSearch;
     genetic->replace = &replace;
     genetic->destroy = &destroy;
-    genetic->print = &print;
+    genetic->printMemory = &printMemory;
+    genetic->printSearch = &printSearch;
     genetic->run = &run;
 
 
