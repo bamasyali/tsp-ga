@@ -125,6 +125,7 @@ CityTraffic * readCityTrafficFromFile(FILE * file, int cityNumber) {
             fscanf(trafficFile, "%lf", &traffic);
 
             (cityTraffic + i)->traffic[city1 * cityNumber + city2] = traffic;
+            (cityTraffic + i)->traffic[city2 * cityNumber + city1] = traffic;
         }
     }
 
