@@ -202,51 +202,24 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
 
 
 
-        long best = 999999;
-        Chromosome * bestChromosome;
-        for (j = 0; j < genetic->chromosomeNumber; j++) {
-            if (genetic->memoryPopulation[j].totalDistance < best) {
-                best = genetic->memoryPopulation[j].totalDistance;
-                bestChromosome = genetic->memoryPopulation + j;
-            }
-
-            if (genetic->searchPopulation[j].totalDistance < best) {
-                best = genetic->searchPopulation[j].totalDistance;
-                bestChromosome = genetic->searchPopulation + j;
-            }
-        }
-
-        if (i > 0 && i % 1000 == 0) {
-            traffic++;
-            for (j = 0; j < genetic->chromosomeNumber; j++) {
-                genetic->memoryPopulation->calculateTotalDistance(genetic->memoryPopulation + j, genetic->cities, traffic);
-                genetic->searchPopulation->calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
-            }
-
-            for (j = 0; j < genetic->explicitMemorySize; j++) {
-                genetic->explicitMemory->calculateTotalDistance(genetic->explicitMemory + j, genetic->cities, traffic);
-            }
-
-            for (j = 0; j < genetic->chromosomeNumber; j++) {
-                if (j % 2 == 0) {
-                    generateChromosomeUsingRandom(genetic->searchPopulation + j);
-                } else {
-                    generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + j, genetic->cities);
-                }
-                genetic->searchPopulation[j].calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
-                genetic->searchPopulation->validate(genetic->searchPopulation +j);
-            }
 
 
-        }
-
-
-        genetic->printMemory(genetic, i);
-        genetic->printSearch(genetic, i);
-
-
-
+        //MEMORY UPDATE
         if (i % genetic->memoryUpdateFrequency == 0) {
+            long best = 999999;
+            Chromosome * bestChromosome;
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                if (genetic->memoryPopulation[j].totalDistance < best) {
+                    best = genetic->memoryPopulation[j].totalDistance;
+                    bestChromosome = genetic->memoryPopulation + j;
+                }
+
+                if (genetic->searchPopulation[j].totalDistance < best) {
+                    best = genetic->searchPopulation[j].totalDistance;
+                    bestChromosome = genetic->searchPopulation + j;
+                }
+            }
+
             if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
 
                 Chromosome * clone = bestChromosome->clone(bestChromosome);
@@ -269,6 +242,35 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
                 free(clone);
             }
         }
+
+        //ENVIROMENT CHANGE
+        if (i > 0 && i % 1000 == 0) {
+            traffic++;
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                genetic->memoryPopulation->calculateTotalDistance(genetic->memoryPopulation + j, genetic->cities, traffic);
+                genetic->searchPopulation->calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
+            }
+
+            for (j = 0; j < genetic->explicitMemorySize; j++) {
+                genetic->explicitMemory->calculateTotalDistance(genetic->explicitMemory + j, genetic->cities, traffic);
+            }
+
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                if (j % 2 == 0) {
+                    generateChromosomeUsingRandom(genetic->searchPopulation + j);
+                } else {
+                    generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + j, genetic->cities);
+                }
+                genetic->searchPopulation[j].calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
+                genetic->searchPopulation->validate(genetic->searchPopulation + j);
+            }
+        }
+
+        genetic->printMemory(genetic, i);
+        genetic->printSearch(genetic, i);
+
+
+
 
 
     }
