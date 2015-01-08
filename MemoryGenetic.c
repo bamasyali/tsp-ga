@@ -123,8 +123,14 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
         int chromosomeSize = genetic->chromosomeNumber;
 
         for (i = 0; i < chromosomeSize; i++) {
-            generateChromosomeUsingRandom(genetic->memoryPopulation + i);
-            generateChromosomeUsingRandom(genetic->searchPopulation + i);
+            if (i % 2 == 0) {
+                generateChromosomeUsingRandom(genetic->memoryPopulation + i);
+                generateChromosomeUsingRandom(genetic->searchPopulation + i);
+            } else {
+                generateChromosomeUsingNearestNeigbour(genetic->memoryPopulation + i, genetic->cities);
+                generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + i, genetic->cities);
+            }
+
 
             genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, traffic);
             genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
@@ -184,6 +190,7 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
                     free(chromosome->values);
                     chromosome->values = clone->values;
                     chromosome->totalDistance = clone->totalDistance;
+                    chromosome->cityNumber = clone->cityNumber;
                     free(clone);
                 } else {
                     clone->destroy(clone);
@@ -210,29 +217,59 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
         }
 
         if (i > 0 && i % 1000 == 0) {
-
             traffic++;
             for (j = 0; j < genetic->chromosomeNumber; j++) {
                 genetic->memoryPopulation->calculateTotalDistance(genetic->memoryPopulation + j, genetic->cities, traffic);
                 genetic->searchPopulation->calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
             }
+
+            for (j = 0; j < genetic->explicitMemorySize; j++) {
+                genetic->explicitMemory->calculateTotalDistance(genetic->explicitMemory + j, genetic->cities, traffic);
+            }
+
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                if (j % 2 == 0) {
+                    generateChromosomeUsingRandom(genetic->searchPopulation + j);
+                } else {
+                    generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + j, genetic->cities);
+                }
+                genetic->searchPopulation[j].calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
+                genetic->searchPopulation->validate(genetic->searchPopulation +j);
+            }
+
+
         }
-        
-        
+
+
         genetic->printMemory(genetic, i);
         genetic->printSearch(genetic, i);
 
 
-        /*
-                if (i & genetic->memoryUpdateFrequency == 0) {
-                    if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
-                        genetic->explicitMemory[genetic->explicitMemorySize].values = bestChromosome->values;
-                        genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = bestChromosome->totalDistance;
-                    } else {
-                        //TODO Mindist
+
+        if (i % genetic->memoryUpdateFrequency == 0) {
+            if (genetic->explicitMemorySize < genetic->chromosomeNumber) {
+
+                Chromosome * clone = bestChromosome->clone(bestChromosome);
+                genetic->explicitMemory[genetic->explicitMemorySize].values = clone->values;
+                genetic->explicitMemory[genetic->explicitMemorySize].totalDistance = clone->totalDistance;
+                free(clone);
+            } else {
+                long worst = 0;
+                Chromosome * worstChromosome;
+                for (j = 0; j < genetic->chromosomeNumber; j++) {
+                    if (genetic->explicitMemory[j].totalDistance > worst) {
+                        worst = genetic->explicitMemory[j].totalDistance;
+                        worstChromosome = genetic->memoryPopulation + j;
                     }
                 }
-         */
+
+                Chromosome * clone = bestChromosome->clone(bestChromosome);
+                worstChromosome->values = clone->values;
+                worstChromosome->totalDistance = clone->totalDistance;
+                free(clone);
+            }
+        }
+
 
     }
 }
