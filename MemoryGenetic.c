@@ -123,14 +123,8 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
         int chromosomeSize = genetic->chromosomeNumber;
 
         for (i = 0; i < chromosomeSize; i++) {
-            if (i % 2 == 0) {
-                generateChromosomeUsingRandom(genetic->memoryPopulation + i);
-                generateChromosomeUsingRandom(genetic->searchPopulation + i);
-            } else {
-                generateChromosomeUsingNearestNeigbour(genetic->memoryPopulation + i, genetic->cities);
-                generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + i, genetic->cities);
-            }
-
+            generateChromosomeUsingRandom(genetic->memoryPopulation + i);
+            generateChromosomeUsingRandom(genetic->searchPopulation + i);
 
             genetic->memoryPopulation[i].calculateTotalDistance(genetic->memoryPopulation + i, genetic->cities, traffic);
             genetic->memoryPopulation->validate(genetic->memoryPopulation + i);
@@ -257,11 +251,8 @@ Chromosome * run(MemoryGenetic * genetic, CityTraffic * traffic) {
             }
 
             for (j = 0; j < genetic->chromosomeNumber; j++) {
-                if (j % 2 == 0) {
-                    generateChromosomeUsingRandom(genetic->searchPopulation + j);
-                } else {
-                    generateChromosomeUsingNearestNeigbour(genetic->searchPopulation + j, genetic->cities);
-                }
+                generateChromosomeUsingRandom(genetic->searchPopulation + j);
+
                 genetic->searchPopulation[j].calculateTotalDistance(genetic->searchPopulation + j, genetic->cities, traffic);
                 genetic->searchPopulation->validate(genetic->searchPopulation + j);
             }
