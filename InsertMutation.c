@@ -21,11 +21,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #ifndef INSERT_H
 #define INSERT_H 1
 #include "InsertMutation.h"

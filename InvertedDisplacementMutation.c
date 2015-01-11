@@ -21,11 +21,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #ifndef DISPLACEMENT_H
 #define DISPLACEMENT 1
 #include "InvertedDisplacementMutation.h"

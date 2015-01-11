@@ -16,24 +16,8 @@
 
 #ifndef GENETIC_H
 #define GENETIC_H 1
-#include "Genetic.h"
+#include "RandonImmigrantGenetic.h"
 #endif
-
-void initPopulation(Genetic * genetic, double randomNeighbourRatio) {
-    int i;
-    int chromosomeSize = genetic->chromosomeNumber;
-    int randomChromosomeNumber = randomNeighbourRatio * chromosomeSize;
-
-    for (i = 0; i < chromosomeSize; i++) {
-        if (i < randomChromosomeNumber) {
-            generateChromosomeUsingRandom(genetic->chromosomes + i);
-        } else {
-            generateChromosomeUsingNearestNeigbour(genetic->chromosomes + i, genetic->cities);
-        }
-        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities, genetic->traffic);
-        genetic->chromosomes->validate(genetic->chromosomes + i);
-    }
-}
 
 void shuffle(Genetic * genetic) {
     Chromosome * array = genetic->chromosomes;
@@ -108,8 +92,18 @@ void destroy(Genetic * genetic) {
     free(genetic);
 };
 
-Chromosome * run(Genetic * genetic) {
+Chromosome * run(Genetic * genetic, CityTraffic * traffic) {
     int i;
+
+    int chromosomeSize = genetic->chromosomeNumber;
+    for (i = 0; i < chromosomeSize; i++) {
+        generateChromosomeUsingRandom(genetic->chromosomes + i);
+
+        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities, traffic);
+        genetic->chromosomes->validate(genetic->chromosomes + i);
+    }
+
+
     for (i = 0; i < genetic->generationLimit; i++) {
 
         genetic->shuffle(genetic);
@@ -135,12 +129,14 @@ Chromosome * run(Genetic * genetic) {
             genetic->mutation(child2);
         }
 
-        child1->calculateTotalDistance(child1, genetic->cities, genetic->traffic);
-        child2->calculateTotalDistance(child2, genetic->cities, genetic->traffic);
+        child1->calculateTotalDistance(child1, genetic->cities, traffic);
+        child2->calculateTotalDistance(child2, genetic->cities, traffic);
 
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
+
+        print(genetic, i);
     }
 
     long best = 999999;
@@ -155,7 +151,7 @@ Chromosome * run(Genetic * genetic) {
     return bestChromosome;
 }
 
-Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, CityTraffic * traffic) {
+Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber, City * cities, double replacementRate) {
     Genetic * genetic = (Genetic *) malloc(sizeof (Genetic));
 
     genetic->cityNumber = cityNumber;
@@ -164,7 +160,7 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
     genetic->chromosomeNumber = chromosomeNumber;
     genetic->chromosomes = (Chromosome *) malloc(sizeof (Chromosome) * chromosomeNumber);
     genetic->cities = cities;
-    genetic->traffic = traffic;
+    genetic->replacementRate = replacementRate;
 
     int i;
     for (i = 0; i < chromosomeNumber; i++) {
@@ -172,7 +168,6 @@ Genetic * initGenetic(int cityNumber, int generationLimit, int chromosomeNumber,
         initChromosome(chromosome, cityNumber);
     }
 
-    genetic->initPopulation = &initPopulation;
     genetic->shuffle = &shuffle;
     genetic->replace = &replace;
     genetic->destroy = &destroy;

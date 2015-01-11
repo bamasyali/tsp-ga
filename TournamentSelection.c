@@ -21,12 +21,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_h
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
-
 #define TOURNAMENT_SIZE 5
 
 Chromosome ** performTournamentSelection(Chromosome * chromosomes, int chromosomeNumber) {

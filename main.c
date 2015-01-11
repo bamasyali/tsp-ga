@@ -22,7 +22,7 @@
 
 #ifndef MEMORY_GENETIC_H
 #define MEMORY_GENETIC_H 1
-#include "MemoryGenetic.h"
+#include "RandonImmigrantGenetic.h"
 #endif
 
 #ifndef PMC_H
@@ -59,10 +59,9 @@
 #define CITY_COUNT 101
 #define MUTATION_PROBABILITY 10
 #define GENERATION_LIMIT 5000
-#define MEMORY_UPDATE_FREQUENCY 10
+#define REPLACEMENT_RATE 0.5
 
 City * CITY_LIST;
-
 
 int main(int argc, char** argv) {
 
@@ -98,7 +97,7 @@ int main(int argc, char** argv) {
     FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
     CityTraffic * traffic = readCityTrafficFromFile(cityTrafficFile, CITY_COUNT);
 
-    MemoryGenetic * genetic = initMemoryGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, MEMORY_UPDATE_FREQUENCY);
+    Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, REPLACEMENT_RATE);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->mutationProbablity = MUTATION_PROBABILITY;
 

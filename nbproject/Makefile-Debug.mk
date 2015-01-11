@@ -37,13 +37,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Chromosome.o \
 	${OBJECTDIR}/City.o \
-	${OBJECTDIR}/Genetic.o \
 	${OBJECTDIR}/InsertMutation.o \
 	${OBJECTDIR}/InversionMutation.o \
 	${OBJECTDIR}/InvertedDisplacementMutation.o \
-	${OBJECTDIR}/MemoryGenetic.o \
 	${OBJECTDIR}/PartiallyMappedCrossover.o \
 	${OBJECTDIR}/RandomMutation.o \
+	${OBJECTDIR}/RandonImmigrantGenetic.o \
 	${OBJECTDIR}/SwapMutation.o \
 	${OBJECTDIR}/TournamentSelection.o \
 	${OBJECTDIR}/main.o
@@ -83,11 +82,6 @@ ${OBJECTDIR}/City.o: City.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/City.o City.c
 
-${OBJECTDIR}/Genetic.o: Genetic.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genetic.o Genetic.c
-
 ${OBJECTDIR}/InsertMutation.o: InsertMutation.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -103,11 +97,6 @@ ${OBJECTDIR}/InvertedDisplacementMutation.o: InvertedDisplacementMutation.c
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InvertedDisplacementMutation.o InvertedDisplacementMutation.c
 
-${OBJECTDIR}/MemoryGenetic.o: MemoryGenetic.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MemoryGenetic.o MemoryGenetic.c
-
 ${OBJECTDIR}/PartiallyMappedCrossover.o: PartiallyMappedCrossover.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -117,6 +106,11 @@ ${OBJECTDIR}/RandomMutation.o: RandomMutation.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RandomMutation.o RandomMutation.c
+
+${OBJECTDIR}/RandonImmigrantGenetic.o: RandonImmigrantGenetic.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RandonImmigrantGenetic.o RandonImmigrantGenetic.c
 
 ${OBJECTDIR}/SwapMutation.o: SwapMutation.c 
 	${MKDIR} -p ${OBJECTDIR}

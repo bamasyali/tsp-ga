@@ -14,11 +14,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #include <math.h>
 
 #define nint(a)   ((a) >= 0.0 ? (int)((a)+0.5) : (int)((a)-0.5))
