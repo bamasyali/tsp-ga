@@ -14,11 +14,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 void calculateTotalDistance(Chromosome * chromosome, City * cities, CityTraffic * traffic) {
 
     double totalDistance = 0;

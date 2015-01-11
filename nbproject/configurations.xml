@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>Chromosome.h</itemPath>
       <itemPath>City.h</itemPath>
-      <itemPath>Genetic.h</itemPath>
       <itemPath>InsertMutation.h</itemPath>
       <itemPath>InversionMutation.h</itemPath>
       <itemPath>InvertedDisplacementMutation.h</itemPath>
@@ -21,7 +20,6 @@
                    projectFiles="true">
       <itemPath>Chromosome.c</itemPath>
       <itemPath>City.c</itemPath>
-      <itemPath>Genetic.c</itemPath>
       <itemPath>InsertMutation.c</itemPath>
       <itemPath>InversionMutation.c</itemPath>
       <itemPath>InvertedDisplacementMutation.c</itemPath>
@@ -76,10 +74,6 @@
       <item path="City.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="City.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Genetic.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="Genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="InsertMutation.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -159,10 +153,6 @@
       <item path="City.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="City.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Genetic.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="Genetic.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="InsertMutation.c" ex="false" tool="0" flavor2="0">
       </item>

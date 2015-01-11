@@ -37,7 +37,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Chromosome.o \
 	${OBJECTDIR}/City.o \
-	${OBJECTDIR}/Genetic.o \
 	${OBJECTDIR}/InsertMutation.o \
 	${OBJECTDIR}/InversionMutation.o \
 	${OBJECTDIR}/InvertedDisplacementMutation.o \
@@ -82,11 +81,6 @@ ${OBJECTDIR}/City.o: City.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/City.o City.c
-
-${OBJECTDIR}/Genetic.o: Genetic.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genetic.o Genetic.c
 
 ${OBJECTDIR}/InsertMutation.o: InsertMutation.c 
 	${MKDIR} -p ${OBJECTDIR}

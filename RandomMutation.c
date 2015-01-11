@@ -21,11 +21,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #ifndef SWAP_H
 #define SWAP_H 1
 #include "SwapMutation.h"

@@ -21,11 +21,6 @@
 #include "Chromosome.h"
 #endif
 
-#ifndef GENETIC_H
-#define GENETIC_H 1
-#include "Genetic.h"
-#endif
-
 #ifndef INVERSION_H
 #define INVERSION_H 1
 #include "InversionMutation.h"
