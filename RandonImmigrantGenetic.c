@@ -73,13 +73,7 @@ void print(Genetic * genetic, int generationNumber) {
             worst = genetic->chromosomes[j].totalDistance;
         }
     }
-
-    long average = 0;
-    for (j = 0; j < genetic->chromosomeNumber; j++) {
-        average += genetic->chromosomes[j].totalDistance;
-    }
-    average = average / genetic->chromosomeNumber;
-    printf("%d ; %lu ; %lu ; %lu\n", generationNumber, best, average, worst);
+    printf("%d ; %lu; %lu\n", generationNumber, best, worst);
 }
 
 void destroy(Genetic * genetic) {
@@ -135,6 +129,22 @@ Chromosome * run(Genetic * genetic, CityTraffic * traffic) {
         genetic->replace(genetic, child1, child2);
 
         genetic->generation++;
+
+
+        if (i > 0 && i % 1000 == 0) {
+            traffic++;
+            int j;
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
+                genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, genetic->cities, traffic);
+            }
+
+            for (j = 0; j < genetic->chromosomeNumber * genetic->replacementRate; j++) {
+                generateChromosomeUsingRandom(genetic->chromosomes + j);
+
+                genetic->chromosomes[j].calculateTotalDistance(genetic->chromosomes + j, genetic->cities, traffic);
+                genetic->chromosomes->validate(genetic->chromosomes + j);
+            }            
+        }
 
         print(genetic, i);
     }
