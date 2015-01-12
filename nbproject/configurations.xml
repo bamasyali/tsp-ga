@@ -32,13 +32,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>eil101.opt.tour</itemPath>
-      <itemPath>eil101.traffic.tsp</itemPath>
-      <itemPath>eil101.traffic_1.tsp</itemPath>
-      <itemPath>eil101.traffic_2.tsp</itemPath>
-      <itemPath>eil101.traffic_3.tsp</itemPath>
-      <itemPath>eil101.traffic_4.tsp</itemPath>
-      <itemPath>eil101.traffic_5.tsp</itemPath>
+      <itemPath>eil101.1.tsp</itemPath>
+      <itemPath>eil101.2.tsp</itemPath>
+      <itemPath>eil101.3.tsp</itemPath>
+      <itemPath>eil101.4.tsp</itemPath>
+      <itemPath>eil101.5.tsp</itemPath>
       <itemPath>eil101.tsp</itemPath>
       <itemPath>main.c</itemPath>
     </logicalFolder>
@@ -107,19 +105,15 @@
       </item>
       <item path="TournamentSelection.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.opt.tour" ex="false" tool="3" flavor2="0">
+      <item path="eil101.1.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.2.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_1.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.3.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_2.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.4.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_3.tsp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="eil101.traffic_4.tsp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="eil101.traffic_5.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.5.tsp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="eil101.tsp" ex="false" tool="3" flavor2="0">
       </item>
@@ -186,19 +180,15 @@
       </item>
       <item path="TournamentSelection.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.opt.tour" ex="false" tool="3" flavor2="0">
+      <item path="eil101.1.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.2.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_1.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.3.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_2.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.4.tsp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="eil101.traffic_3.tsp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="eil101.traffic_4.tsp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="eil101.traffic_5.tsp" ex="false" tool="3" flavor2="0">
+      <item path="eil101.5.tsp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="eil101.tsp" ex="false" tool="3" flavor2="0">
       </item>
