@@ -86,14 +86,14 @@ void destroy(Genetic * genetic) {
     free(genetic);
 };
 
-Chromosome * run(Genetic * genetic, CityTraffic * traffic) {
+Chromosome * run(Genetic * genetic) {
     int i;
 
     int chromosomeSize = genetic->chromosomeNumber;
     for (i = 0; i < chromosomeSize; i++) {
         generateChromosomeUsingRandom(genetic->chromosomes + i);
 
-        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities, traffic);
+        genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, genetic->cities);
         genetic->chromosomes->validate(genetic->chromosomes + i);
     }
 
@@ -123,8 +123,8 @@ Chromosome * run(Genetic * genetic, CityTraffic * traffic) {
             genetic->mutation(child2);
         }
 
-        child1->calculateTotalDistance(child1, genetic->cities, traffic);
-        child2->calculateTotalDistance(child2, genetic->cities, traffic);
+        child1->calculateTotalDistance(child1, genetic->cities);
+        child2->calculateTotalDistance(child2, genetic->cities);
 
         genetic->replace(genetic, child1, child2);
 
@@ -132,16 +132,15 @@ Chromosome * run(Genetic * genetic, CityTraffic * traffic) {
 
 
         if (i > 0 && i % 1000 == 0) {
-            traffic++;
             int j;
             for (j = 0; j < genetic->chromosomeNumber; j++) {
-                genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, genetic->cities, traffic);
+                genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, genetic->cities);
             }
 
             for (j = 0; j < genetic->chromosomeNumber * genetic->replacementRate; j++) {
                 generateChromosomeUsingRandom(genetic->chromosomes + j);
 
-                genetic->chromosomes[j].calculateTotalDistance(genetic->chromosomes + j, genetic->cities, traffic);
+                genetic->chromosomes[j].calculateTotalDistance(genetic->chromosomes + j, genetic->cities);
                 genetic->chromosomes->validate(genetic->chromosomes + j);
             }            
         }

@@ -95,7 +95,6 @@ int main(int argc, char** argv) {
     CITY_LIST = readCitiesFromFile(cityFile, CITY_COUNT);
 
     FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
-    CityTraffic * traffic = readCityTrafficFromFile(cityTrafficFile, CITY_COUNT);
 
     Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, REPLACEMENT_RATE);
     genetic->crossover = &performPartiallyMappedCrossover;
@@ -115,7 +114,7 @@ int main(int argc, char** argv) {
         genetic->mutation = &performInvertedDisplacementMutation;
     }
 
-    Chromosome * best = genetic->run(genetic, traffic);
+    Chromosome * best = genetic->run(genetic);
 
     genetic->destroy;
 

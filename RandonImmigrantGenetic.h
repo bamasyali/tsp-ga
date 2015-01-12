@@ -39,7 +39,7 @@ typedef struct GeneticStruct {
     void (*mutation)(struct ChromosomeStruct*);
     void (*destroy)(struct GeneticStruct*);
     void (*print)(struct GeneticStruct*, int generationNumber);
-    Chromosome * (*run)(struct GeneticStruct*, CityTraffic *);
+    Chromosome * (*run)(struct GeneticStruct*);
 
 } Genetic;
 

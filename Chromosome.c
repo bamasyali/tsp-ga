@@ -14,8 +14,7 @@
 #include "Chromosome.h"
 #endif
 
-
-void calculateTotalDistance(Chromosome * chromosome, City * cities, CityTraffic * traffic) {
+void calculateTotalDistance(Chromosome * chromosome, City * cities) {
 
     double totalDistance = 0;
 
@@ -25,17 +24,15 @@ void calculateTotalDistance(Chromosome * chromosome, City * cities, CityTraffic 
         int cityId2 = chromosome->values[i + 1];
         City * c1 = cities + cityId1;
         City * c2 = cities + cityId2;
-        double trafficValue = traffic->traffic[chromosome->cityNumber * cityId1 + cityId2];
         //printf("%d %d %d\n", i, c1->id, c2->id);
-        totalDistance += trafficValue * cities->calculateDistanceById(cities, c1->id, c2->id);
+        totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
     }
 
     int cityId1 = chromosome->values[chromosome->cityNumber - 1];
     int cityId2 = chromosome->values[0];
     City * c1 = cities + cityId1;
     City * c2 = cities + cityId2;
-    double trafficValue = traffic->traffic[chromosome->cityNumber * cityId1 + cityId2];
-    totalDistance += trafficValue * cities->calculateDistanceById(cities, c1->id, c2->id);
+    totalDistance += cities->calculateDistanceById(cities, c1->id, c2->id);
 
     chromosome->totalDistance = totalDistance;
 }

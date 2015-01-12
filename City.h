@@ -22,13 +22,6 @@ typedef struct CityStruct {
     void (*destroy)(struct CityStruct*);
 } City;
 
-typedef struct CityTrafficStruct {
-    double * traffic;
-
-} CityTraffic;
-
 City * initCity();
 
 City * readCitiesFromFile(FILE * file, int cityNumber);
-
-CityTraffic * readCityTrafficFromFile(FILE * file, int cityNumber);
