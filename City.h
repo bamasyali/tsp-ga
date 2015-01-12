@@ -24,4 +24,4 @@ typedef struct CityStruct {
 
 City * initCity();
 
-City * readCitiesFromFile(FILE * file, int cityNumber);
+City ** readCitiesFromFile(FILE * file, int cityNumber);

@@ -61,7 +61,7 @@
 #define GENERATION_LIMIT 5000
 #define REPLACEMENT_RATE 0.5
 
-City * CITY_LIST;
+City ** CITY_LIST;
 
 int main(int argc, char** argv) {
 
