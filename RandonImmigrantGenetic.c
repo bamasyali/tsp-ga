@@ -135,12 +135,15 @@ Chromosome * run(Genetic * genetic) {
 
             genetic->cities++;
 
-            int j;
+
+
+            /*
             for (j = 0; j < genetic->chromosomeNumber; j++) {
                 genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);
             }
-
-            for (j = 0; j < genetic->chromosomeNumber * genetic->replacementRate; j++) {
+             */
+            int j;
+            for (j = 0; j < genetic->chromosomeNumber; j++) {
                 generateChromosomeUsingRandom(genetic->chromosomes + j);
 
                 genetic->chromosomes[j].calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);

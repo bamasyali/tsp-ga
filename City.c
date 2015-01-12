@@ -76,8 +76,8 @@ City ** readCitiesFromFile(FILE * file, int cityNumber) {
         double lat;
         double lng;
 
-        City * city = (City*) malloc(sizeof (City) * cityNumber);
-        City * temp = city;
+        citiesList[j] = (City*) malloc(sizeof (City) * cityNumber);
+        City * temp = citiesList[j];
 
         for (i = 0; i < cityNumber; i++) {
             fscanf(cityFile, "%d", &id);
@@ -88,14 +88,13 @@ City ** readCitiesFromFile(FILE * file, int cityNumber) {
             temp->lat = lat;
             temp->lng = lng;
 
-            city->calculateDistance = &calculateDistance;
-            city->calculateDistanceById = &calculateDistanceById;
+            temp->calculateDistance = &calculateDistance;
+            temp->calculateDistanceById = &calculateDistanceById;
             temp->print = &printCity;
             temp->destroy = &destroyCity;
 
             temp++;
         }
-        citiesList[i] = city;
     }
     return citiesList;
 

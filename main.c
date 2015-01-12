@@ -94,8 +94,6 @@ int main(int argc, char** argv) {
     FILE * cityFile = fopen("eil101.tsp", "r");
     CITY_LIST = readCitiesFromFile(cityFile, CITY_COUNT);
 
-    FILE * cityTrafficFile = fopen("eil101.traffic.tsp", "r");
-
     Genetic * genetic = initGenetic(CITY_COUNT, GENERATION_LIMIT, chromosomeNumber, CITY_LIST, REPLACEMENT_RATE);
     genetic->crossover = &performPartiallyMappedCrossover;
     genetic->mutationProbablity = MUTATION_PROBABILITY;
