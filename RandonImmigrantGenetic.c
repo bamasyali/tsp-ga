@@ -91,7 +91,7 @@ Chromosome * run(Genetic * genetic) {
 
     int chromosomeSize = genetic->chromosomeNumber;
     for (i = 0; i < chromosomeSize; i++) {
-        generateChromosomeUsingRandom(genetic->chromosomes + i);
+        generateChromosomeUsingRandom(genetic->chromosomes + i, *genetic->cities);
 
         genetic->chromosomes[i].calculateTotalDistance(genetic->chromosomes + i, *genetic->cities);
         genetic->chromosomes->validate(genetic->chromosomes + i);
@@ -137,14 +137,14 @@ Chromosome * run(Genetic * genetic) {
 
             int j;
 
-/*
+            /*
+                        for (j = 0; j < genetic->chromosomeNumber; j++) {
+                            genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);
+                        }
+             */
+
             for (j = 0; j < genetic->chromosomeNumber; j++) {
-                genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);
-            }
-*/
-            
-            for (j = 0; j < genetic->chromosomeNumber; j++) {
-                generateChromosomeUsingRandom(genetic->chromosomes + j);
+                generateChromosomeUsingRandom(genetic->chromosomes + j, *genetic->cities);
 
                 genetic->chromosomes[j].calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);
                 genetic->chromosomes->validate(genetic->chromosomes + j);

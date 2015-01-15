@@ -120,11 +120,11 @@ void shuffleCityArray(int *array, int n) {
     }
 }
 
-void generateChromosomeUsingRandom(Chromosome * chromosome) {
+void generateChromosomeUsingRandom(Chromosome * chromosome, City * cities) {
 
     int i;
     for (i = 0; i < chromosome->cityNumber; i++) {
-        chromosome->values[i] = i + 1;
+        chromosome->values[i] = cities[i].id;
     }
 
     shuffleCityArray(chromosome->values, chromosome->cityNumber);
