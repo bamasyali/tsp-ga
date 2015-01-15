@@ -17,7 +17,7 @@ typedef struct CityStruct {
     double lng;
 
     double (*calculateDistance)(struct CityStruct*, struct CityStruct*);
-    double (*calculateDistanceById)(struct CityStruct*, int, int);
+    double (*calculateDistanceById)(struct CityStruct*, int, int, int);
     void (*print)(struct CityStruct*);
     void (*destroy)(struct CityStruct*);
 } City;
@@ -25,3 +25,5 @@ typedef struct CityStruct {
 City * initCity();
 
 City ** readCitiesFromFile(FILE * file, int cityNumber);
+
+City * getCityById(City * cities, int size, int id);

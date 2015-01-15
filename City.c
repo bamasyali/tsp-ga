@@ -30,9 +30,18 @@ inline double calculateDistance(City* city1, City* city2) {
     return nint(sqrt(temp));
 }
 
-double calculateDistanceById(City * cities, int city1, int city2) {
-    City * c1 = (cities + city1 - 1);
-    City * c2 = (cities + city2 - 1);
+City * getCityById(City * cities, int size, int id) {
+    for (int i = 0; i < size; i++) {
+        if ((cities + i)->id == id) {
+            return cities + i;
+        }
+    }
+    return NULL;
+}
+
+double calculateDistanceById(City * cities, int size, int city1, int city2) {
+    City * c1 = getCityById(cities, size, city1);
+    City * c2 = getCityById(cities, size, city2);
 
     return calculateDistance(c1, c2);
 }

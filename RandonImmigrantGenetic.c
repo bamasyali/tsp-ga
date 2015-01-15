@@ -135,14 +135,14 @@ Chromosome * run(Genetic * genetic) {
 
             genetic->cities++;
 
+            int j;
 
-
-            /*
+/*
             for (j = 0; j < genetic->chromosomeNumber; j++) {
                 genetic->chromosomes->calculateTotalDistance(genetic->chromosomes + j, *genetic->cities);
             }
-             */
-            int j;
+*/
+            
             for (j = 0; j < genetic->chromosomeNumber; j++) {
                 generateChromosomeUsingRandom(genetic->chromosomes + j);
 
